@@ -178,6 +178,108 @@
     .result-row:last-child, .scorer-row:last-child { border-bottom: 0; }
 
     .note-card { padding: 18px; margin: 10px 0 22px; }
+
+    .stream-shell {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: start;
+      margin: 8px 0 22px;
+    }
+
+    .stream-player, .channel-card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .stream-player { padding: 18px; }
+    .stream-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .stream-status {
+      background: rgba(255, 183, 3, 0.15);
+      color: var(--accent);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .stream-frame {
+      position: relative;
+      min-height: 320px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #050b14;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stream-frame video {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      background: #000;
+      object-fit: cover;
+    }
+    .stream-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      color: var(--muted);
+      background: radial-gradient(circle at top, rgba(0,212,255,0.16), transparent 60%);
+    }
+    .stream-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .channel-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .channel-card {
+      padding: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .channel-card:hover, .channel-card.active {
+      transform: translateY(-2px);
+      border-color: rgba(0,212,255,0.6);
+    }
+    .channel-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .channel-chip {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0,212,255,0.16);
+      color: var(--accent-2);
+      font-size: 0.78rem;
+    }
+    .channel-card p { color: var(--muted); font-size: 0.92rem; }
     footer {
       text-align: center;
       color: var(--muted);
@@ -186,6 +288,7 @@
     }
 
     @media (max-width: 900px) {
+      .stream-shell { grid-template-columns: 1fr; }
       .hero, .groups { grid-template-columns: 1fr; }
       .info-grid { grid-template-columns: 1fr; }
     }
@@ -200,7 +303,6 @@
         <p>أهلاً وسهلاً بكم في دوري شركة تدوير البيئة الأهلية، ويقدم هذا الموقع تجربة احترافية تعرض البطولة والفرق والنتائج المنتهية والمباريات القادمة بشكل واضح ومميز. الراعي الرسمي ناصر الذويب.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#matches">شاهد المباريات القادمة</a>
-          <a class="btn btn-secondary" href="../scorers.html">الترتيب والهدافون</a>
         </div>
         <div class="info-grid">
           <div class="info-box"><strong>الموعد</strong><span>الجمعة 31/7/2026</span></div>
@@ -254,15 +356,42 @@
       </section>
 
       <section class="section">
-        <h2>أبرز الهدافين</h2>
-        <div class="scorers-list">
-          <article class="scorers-card">
-            <div class="scorer-row"><span>1- أسيل السماوي</span><span>6 أهداف | إسبانيا</span></div>
-            <div class="scorer-row"><span>2- هيثم السماوي</span><span>5 أهداف | إسبانيا</span></div>
-            <div class="scorer-row"><span>3- أسامه</span><span>3 أهداف | إسبانيا</span></div>
-            <div class="scorer-row"><span>4- محمد أجل</span><span>3 أهداف | بنجلادش</span></div>
-            <div class="scorer-row"><span>5- ثابت عياش</span><span>2 أهداف | البرازيل</span></div>
-          </article>
+        <h2>البث المباشر</h2>
+        <div class="stream-shell">
+          <div class="stream-player">
+            <div class="stream-header">
+              <h3>بث مباشر من موقع بين سبورت</h3>
+              <span class="stream-status">مباشر الآن</span>
+            </div>
+            <div class="stream-frame">
+              <video controls poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+              </video>
+              <div class="stream-placeholder">
+                <strong>البث سيتم تشغيله مباشرة هنا</strong>
+                <p>يمكنك استبدال المصدر برابط البث الحقيقي عند توفره.</p>
+              </div>
+            </div>
+            <div class="stream-meta">
+              <span>المباراة: بنجلادش ضد فرنسا</span>
+              <span>الجودة: HD</span>
+            </div>
+          </div>
+
+          <div class="channel-grid">
+            <div class="channel-card active">
+              <div class="channel-title"><span>بين سبورت 1</span><span class="channel-chip">HD</span></div>
+              <p>قناة رئيسية للبث المباشر واللقاءات المهمة.</p>
+            </div>
+            <div class="channel-card">
+              <div class="channel-title"><span>بين سبورت 2</span><span class="channel-chip">مكرر</span></div>
+              <p>بث بديل مع تغطية كاملة للمباراة.</p>
+            </div>
+            <div class="channel-card">
+              <div class="channel-title"><span>بين سبورت 3</span><span class="channel-chip">تفاعل</span></div>
+              <p>قناة مخصصة للتعليقات والتحليل المباشر.</p>
+            </div>
+          </div>
         </div>
       </section>
 
