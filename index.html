@@ -153,6 +153,14 @@
       .topbar { flex-direction: column; align-items: stretch; }
       .section-header { flex-direction: column; align-items: flex-start; }
     }
+    .alert-warning {
+      padding: 14px 18px;
+      margin-top: 14px;
+      border-radius: 18px;
+      background: rgba(255,183,3,0.12);
+      color: #ffd166;
+      border: 1px solid rgba(255,183,3,0.22);
+    }
   </style>
 </head>
 <body>
@@ -175,6 +183,7 @@
             <a class="btn btn-primary" href="#live">شاهد البث الآن</a>
             <a class="btn btn-secondary" href="#matches">مواعيد المباريات</a>
             <a class="btn btn-secondary" href="#standings">ترتيب المجموعات</a>
+            <button class="btn btn-secondary" id="admin-access-btn">لوحة التحكم</button>
           </div>
         </div>
         <div class="stats-grid">
@@ -365,6 +374,26 @@
           <p>واجهة مصممة لتقديم بث مباشر احترافي مشاهد رياضية عربية واضحة ومعلومات البطولة بسهولة. يمكنك الاعتماد على تصميم أقوى وأسرع من النموذج المرجعي.</p>
         </div>
       </section>
+
+      <section id="admin" class="section">
+        <div class="section-header">
+          <div>
+            <h3>رابط التحكم</h3>
+            <p>زر للوصول السريع إلى لوحة التحكم أو صفحة الإدارة الخاصة بالموقع.</p>
+          </div>
+        </div>
+        <article class="card guide-card">
+          <h4>لوحة التحكم</h4>
+          <p>يمكنك الدخول فقط إذا كنت تملك رمز التحكم الخاص بي.</p>
+          <p><button class="btn btn-secondary" id="admin-panel-btn">افتح لوحة التحكم</button></p>
+          <p>الرمز المطلوب هو <strong>71588</strong>.</p>
+          <div id="admin-success" class="card guide-card" style="display:none; margin-top: 16px;">
+            <h4>تم تأكيد الهوية</h4>
+            <p>يمكنك الآن الدخول إلى رابط الإدارة الخاص بك.</p>
+            <p><a id="admin-link" href="https://example.com/admin?code=71588" target="_blank" rel="noopener" class="btn btn-secondary">فتح لوحة التحكم</a></p>
+          </div>
+        </article>
+      </section>
     </main>
   </div>
 
@@ -426,6 +455,32 @@
     });
 
     if (channelCards.length > 0) setChannel(channelCards[0]);
+
+    const adminButton = document.getElementById('admin-access-btn');
+    const adminPanelBtn = document.getElementById('admin-panel-btn');
+    const adminSuccess = document.getElementById('admin-success');
+    const adminLink = document.getElementById('admin-link');
+    const adminSecret = '71588';
+    const adminUrl = 'https://example.com/admin?code=71588';
+
+    const requestAdminAccess = () => {
+      const code = prompt('أدخل رمز التحكم الخاص بك');
+      if (code === adminSecret) {
+        adminSuccess.style.display = 'block';
+        adminLink.href = adminUrl;
+        alert('تم التحقق! يمكنك الآن الدخول إلى لوحة التحكم.');
+      } else if (code !== null) {
+        alert('الرمز غير صحيح. حاول مرة أخرى.');
+      }
+    };
+
+    if (adminButton) {
+      adminButton.addEventListener('click', requestAdminAccess);
+    }
+
+    if (adminPanelBtn) {
+      adminPanelBtn.addEventListener('click', requestAdminAccess);
+    }
   </script>
 </body>
 </html>
