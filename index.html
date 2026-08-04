@@ -12,15 +12,16 @@
       --text: #f5f7fb;
       --muted: #9fb0c7;
       --accent: #ffb703;
-      --accent-2: #00d4ff ;
+      --accent-2: #00d4ff;
       --border: rgba(255,255,255,0.12);
+      --surface: rgba(255,255,255,0.05);
     }
 
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Tahoma, Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg), #0d1f36 55%, #122845);
+      background: radial-gradient(circle at top left, rgba(0,212,255,0.14), transparent 28%), linear-gradient(135deg, var(--bg), #0d1f36 55%, #122845);
       color: var(--text);
       line-height: 1.7;
     }
@@ -28,92 +29,170 @@
     a { color: inherit; text-decoration: none; }
     .container { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
 
-    .hero {
-      padding: 40px 0 24px;
+    .page-header {
+      padding: 18px 0 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: rgba(255,183,3,0.15);
       display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
+      place-items: center;
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    .brand-info h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-info p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .nav-links a { transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 24px 0 16px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.85fr;
       gap: 24px;
       align-items: start;
     }
 
-    .hero-card, .group-card, .match-card, .note-card, .results-card, .scorers-card {
+    .hero-card,
+    .group-card,
+    .match-card,
+    .note-card,
+    .results-card,
+    .scorers-card,
+    .stats-card {
       background: linear-gradient(180deg, var(--panel), var(--panel-2));
       border: 1px solid var(--border);
       border-radius: 22px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
     }
 
-    .hero-card { padding: 24px; }
+    .hero-card { padding: 28px; min-height: 360px; display: flex; flex-direction: column; justify-content: space-between; }
     .badge {
       display: inline-block;
-      padding: 7px 12px;
+      padding: 8px 14px;
       border-radius: 999px;
       background: rgba(0, 212, 255, 0.15);
       color: var(--accent-2);
       font-size: 0.9rem;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
     h1, h2, h3, p { margin: 0; }
-    h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 12px; }
-    .hero p { color: var(--muted); }
+    h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; }
+    .hero p { color: var(--muted); font-size: 1.05rem; }
+    .hero strong { color: var(--text); }
 
     .actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin: 18px 0 20px;
+      margin: 24px 0 22px;
     }
 
     .btn {
       display: inline-block;
-      padding: 10px 16px;
+      padding: 12px 18px;
       border-radius: 999px;
       font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
+    .btn:hover { transform: translateY(-1px); }
     .btn-primary {
       background: linear-gradient(90deg, var(--accent), #ff8f00);
       color: #111;
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       color: var(--text);
       border: 1px solid var(--border);
     }
 
-    .info-grid {
+    .hero-meta {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
       margin-top: 16px;
     }
 
-    .info-box {
-      padding: 12px;
-      border-radius: 14px;
+    .info-box,
+    .stats-card {
+      padding: 18px;
+      border-radius: 18px;
       background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .info-box strong { display: block; margin-bottom: 4px; }
-    .info-box span { color: var(--muted); font-size: 0.9rem; }
+    .info-box strong,
+    .stats-card strong { display: block; margin-bottom: 6px; font-size: 0.95rem; }
+    .info-box span,
+    .stats-card span { color: var(--muted); font-size: 0.92rem; }
 
     .sponsor-card {
       padding: 22px;
       text-align: center;
+      min-height: 260px;
+      display: grid;
+      gap: 18px;
+      align-items: center;
     }
 
     .sponsor-card .logo {
       font-size: 2rem;
       font-weight: 800;
       color: var(--accent);
-      margin: 8px 0;
+      margin: 0;
     }
 
     .section { padding: 16px 0 8px; }
-    .section h2 { margin-bottom: 14px; font-size: 1.25rem; }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .section h2 { margin: 0; font-size: 1.35rem; }
+    .section p { color: var(--muted); margin-top: 4px; }
 
     .groups {
       display: grid;
@@ -121,24 +200,63 @@
       gap: 16px;
     }
 
-    .group-card { padding: 18px; }
-    .group-card ul { list-style: none; padding: 0; margin: 10px 0 0; }
+    .group-card { padding: 22px; }
+    .group-card h3 { margin-bottom: 12px; font-size: 1.15rem; }
+    .group-card ul { list-style: none; padding: 0; margin: 0; }
     .group-card li {
-      padding: 10px 0;
+      padding: 14px 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .group-card li:last-child { border-bottom: 0; }
+    .group-card li strong { color: var(--text); font-weight:700; }
 
-    .matches-list, .results-list, .scorers-list {
-      display: grid;
-      gap: 12px;
+    .table-container {
+      overflow-x: auto;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .match-card, .results-card, .scorers-card {
-      padding: 16px 18px;
+    .standings-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      color: var(--text);
+    }
+
+    .standings-table th,
+    .standings-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.95rem;
+    }
+
+    .standings-table th {
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    .standings-table tbody tr:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .matches-list,
+    .results-list,
+    .scorers-list {
       display: grid;
-      gap: 8px;
+      gap: 14px;
+    }
+
+    .match-card,
+    .results-card,
+    .scorers-card {
+      padding: 18px 20px;
+      display: grid;
+      gap: 10px;
     }
 
     .match-top {
@@ -165,70 +283,96 @@
 
     .details { color: var(--muted); font-size: 0.95rem; }
 
-    .result-row, .scorer-row {
+    .result-row,
+    .scorer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .result-row:last-child, .scorer-row:last-child { border-bottom: 0; }
+    .result-row:last-child,
+    .scorer-row:last-child { border-bottom: 0; }
 
-    .note-card { padding: 18px; margin: 10px 0 22px; }
+    .note-card { padding: 22px; margin: 10px 0 22px; }
+    .note-card h3 { margin-bottom: 10px; font-size: 1.05rem; }
+    .note-card p { color: var(--muted); line-height:1.8; }
 
     .stream-shell {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
+      grid-template-columns: 1.65fr 0.95fr;
+      gap: 20px;
       align-items: start;
       margin: 8px 0 22px;
     }
 
-    .stream-player, .channel-card {
+    .stream-player,
+    .stream-sidebar {
       background: linear-gradient(180deg, var(--panel), var(--panel-2));
       border: 1px solid var(--border);
       border-radius: 22px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
     }
 
-    .stream-player { padding: 18px; }
-    .stream-header {
+    .stream-player { overflow: hidden; }
+    .player-top {
+      padding: 22px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      align-items: flex-start;
+      gap: 14px;
       flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    .stream-status {
-      background: rgba(255, 183, 3, 0.15);
-      color: var(--accent);
-      padding: 7px 10px;
+
+    .player-title h3 { margin: 0; font-size: 1.3rem; }
+    .player-title span { color: var(--muted); font-size: 0.95rem; }
+
+    .player-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-small {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      padding: 10px 14px;
       border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
+
+    .btn-small:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+
     .stream-frame {
       position: relative;
-      min-height: 320px;
-      border-radius: 18px;
+      min-height: 360px;
+      border-radius: 0 0 18px 18px;
       overflow: hidden;
       background: #050b14;
-      border: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .stream-frame video {
       width: 100%;
       height: 100%;
-      min-height: 320px;
+      min-height: 360px;
       background: #000;
       object-fit: cover;
+      position: relative;
+      z-index: 1;
     }
+
     .stream-placeholder {
       position: absolute;
       inset: 0;
@@ -237,31 +381,38 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 20px;
+      padding: 28px;
       color: var(--muted);
       background: radial-gradient(circle at top, rgba(0,212,255,0.16), transparent 60%);
+      z-index: 2;
     }
+    .stream-placeholder strong { color: var(--text); margin-bottom: 10px; font-size: 1.05rem; }
+
     .stream-meta {
       display: flex;
       justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 10px;
+      padding: 18px 22px 22px;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .channel-grid {
-      display: grid;
-      gap: 10px;
-    }
+
+    .stream-sidebar { padding: 20px; display: grid; gap: 18px; }
+    .channel-list { display: grid; gap: 12px; }
     .channel-card {
-      padding: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
       cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
-    .channel-card:hover, .channel-card.active {
-      transform: translateY(-2px);
-      border-color: rgba(0,212,255,0.6);
+    .channel-card:hover { transform: translateY(-2px); }
+    .channel-card.active {
+      border-color: var(--accent);
+      background: rgba(255,183,3,0.12);
     }
     .channel-title {
       display: flex;
@@ -269,80 +420,199 @@
       align-items: center;
       gap: 8px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
     .channel-chip {
       display: inline-block;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 999px;
       background: rgba(0,212,255,0.16);
       color: var(--accent-2);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
+    }
+    .channel-card.active .channel-chip {
+      background: rgba(255,255,255,0.16);
+      color: var(--accent);
     }
     .channel-card p { color: var(--muted); font-size: 0.92rem; }
+
+    .guide-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .guide-card h4 { margin: 0 0 10px; font-size: 1rem; }
+    .guide-card p { color: var(--muted); font-size: 0.94rem; line-height: 1.7; }
+
     footer {
       text-align: center;
       color: var(--muted);
-      padding: 0 0 28px;
+      padding: 24px 0 28px;
       font-size: 0.95rem;
     }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); transition: color 0.2s ease; }
+    .footer-links a:hover { color: var(--text); }
 
     @media (max-width: 900px) {
       .stream-shell { grid-template-columns: 1fr; }
       .hero, .groups { grid-template-columns: 1fr; }
-      .info-grid { grid-template-columns: 1fr; }
+      .info-grid, .hero-meta { grid-template-columns: 1fr; }
+      .standings-table { min-width: auto; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header class="hero">
-      <div class="hero-card">
-        <div class="badge">أهلاً وسهلاً بكم</div>
-        <h1>دوري شركة تدوير البيئة الأهلية</h1>
-        <p>أهلاً وسهلاً بكم في دوري شركة تدوير البيئة الأهلية، ويقدم هذا الموقع تجربة احترافية تعرض البطولة والفرق والنتائج المنتهية والمباريات القادمة بشكل واضح ومميز. الراعي الرسمي ناصر الذويب.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#matches">شاهد المباريات القادمة</a>
-        </div>
-        <div class="info-grid">
-          <div class="info-box"><strong>الموعد</strong><span>الجمعة 31/7/2026</span></div>
-          <div class="info-box"><strong>عدد المنتخبات</strong><span>6 منتخبات</span></div>
-          <div class="info-box"><strong>الترتيب</strong><span>المباريات القادمة أولاً</span></div>
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-mark">د</span>
+        <div class="brand-info">
+          <h1>دوري تدوير البيئة الأهلية</h1>
+          <p>تغطية رياضية متكاملة للمباريات والأحداث المباشرة.</p>
         </div>
       </div>
-
-      <div class="hero-card sponsor-card">
-        <div class="badge">الراعي الرسمي</div>
-        <div class="logo">ناصر الذويب</div>
-        <p>دعم احترافي للبطولة ومواكبة كل فعالياتها الرياضية.</p>
-      </div>
+      <nav class="nav-links">
+        <a href="#standings">الترتيب</a>
+        <a href="#results">النتائج</a>
+        <a href="#live">البث المباشر</a>
+        <a href="#matches">المباريات القادمة</a>
+      </nav>
     </header>
 
+    <section class="hero">
+      <article class="hero-card">
+        <div>
+          <div class="badge">دوري رسمي 2026</div>
+          <h1>أحدث أخبار البطولة وأبرز مباريات نصف النهائي</h1>
+          <p>مرحبا بكم في العرض الرسمي لدوري شركة تدوير البيئة الأهلية. تصفح النتائج، رتب الفرق، وابدأ مشاهدة البث المباشر مباشرة من هنا.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#live">شاهد البث الآن</a>
+            <a class="btn btn-secondary" href="#standings">عرض الترتيب</a>
+          </div>
+          <div class="hero-meta">
+            <div class="info-box"><strong>التاريخ</strong><span>الجمعة 31 يوليو 2026</span></div>
+            <div class="info-box"><strong>الفرق المشاركة</strong><span>6 فرق</span></div>
+            <div class="info-box"><strong>المرحلة</strong><span>نصف النهائي</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="hero-card sponsor-card">
+        <div>
+          <div class="badge">الراعي الرسمي</div>
+          <div class="logo">ناصر الذويب</div>
+          <p>دعم احترافي لتطوير البطولة وتقديم تجربة مشاهدة رياضية متكاملة.</p>
+        </div>
+        <div class="stats-card">
+          <strong>تحديث مباشر</strong>
+          <span>كل جديد من النتائج والمواعيد يتم تحديثه أولاً بأول.</span>
+        </div>
+        <div class="stats-card">
+          <strong>تجربة مشاهدة</strong>
+          <span>بث عالي الجودة، تحليل سريع ومحتوى يناسب الجمهور العربي.</span>
+        </div>
+      </article>
+    </section>
+
     <main>
-      <section class="section">
-        <h2>الترتيب النهائي</h2>
-        <div class="groups">
-          <article class="group-card">
-            <h3>المجموعة A</h3>
-            <ul>
-              <li>1- بنجلادش — 6 نقاط</li>
-              <li>2- الأرجنتين — 3 نقاط</li>
-              <li>3- البرازيل — 0 نقاط</li>
-            </ul>
-          </article>
-          <article class="group-card">
-            <h3>المجموعة B</h3>
-            <ul>
-              <li>1- إسبانيا — 6 نقاط</li>
-              <li>2- فرنسا — 3 نقاط</li>
-              <li>3- السعودية — 0 نقاط</li>
-            </ul>
-          </article>
+      <section id="standings" class="section">
+        <div class="section-header">
+          <div>
+            <h2>الترتيب النهائي</h2>
+            <p>الفرق المصنفة بعد مرحلة المجموعات والمواجهات المقبلة.</p>
+          </div>
+          <span class="badge">تصنيف البطولة</span>
+        </div>
+        <div class="table-container">
+          <table class="standings-table">
+            <thead>
+              <tr>
+                <th>الترتيب</th>
+                <th>الفريق</th>
+                <th>لعب</th>
+                <th>فوز</th>
+                <th>تعادل</th>
+                <th>خسارة</th>
+                <th>نقاط</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>إسبانيا</td>
+                <td>3</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td>9</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>فرنسا</td>
+                <td>3</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>الأرجنتين</td>
+                <td>3</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>بنجلادش</td>
+                <td>3</td>
+                <td>1</td>
+                <td>0</td>
+                <td>2</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>البرازيل</td>
+                <td>3</td>
+                <td>1</td>
+                <td>0</td>
+                <td>2</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>السعودية</td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
-      <section class="section">
-        <h2>النتائج المنتهية</h2>
+      <section id="results" class="section">
+        <div class="section-header">
+          <div>
+            <h2>النتائج المنتهية</h2>
+            <p>أبرز المباريات بالنتائج النهائية حتى الآن.</p>
+          </div>
+        </div>
         <div class="results-list">
           <article class="results-card">
             <div class="result-row"><span>الأرجنتين 4 - 1 البرازيل</span><span>المجموعة A</span></div>
@@ -356,75 +626,174 @@
       </section>
 
       <section class="section">
-        <h2>البث المباشر</h2>
+        <div class="section-header">
+          <div>
+            <h2>أكثر الهدافين</h2>
+            <p>النجوم الذين قادوا الهجوم في البطولة حتى الآن.</p>
+          </div>
+        </div>
+        <div class="scorers-list">
+          <article class="scorers-card">
+            <div class="scorer-row"><span>مهاجم إسبانيا</span><strong>7 أهداف</strong></div>
+            <div class="scorer-row"><span>نجم الأرجنتين</span><strong>5 أهداف</strong></div>
+            <div class="scorer-row"><span>هداف فرنسا</span><strong>4 أهداف</strong></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="live" class="section">
+        <div class="section-header">
+          <div>
+            <h2>البث المباشر</h2>
+            <p>واجهة بث تشبه ياسين تي في، مع اختيار القناة والدليل المباشر.</p>
+          </div>
+          <span class="badge">متوفر الآن</span>
+        </div>
         <div class="stream-shell">
           <div class="stream-player">
-            <div class="stream-header">
-              <h3>بث مباشر من موقع بين سبورت</h3>
-              <span class="stream-status">مباشر الآن</span>
+            <div class="player-top">
+              <div class="player-title">
+                <div class="badge">LIVE</div>
+                <h3>قناة ياسين تي في</h3>
+                <span>اختر قناة من القائمة واستمتع بالبث المباشر عبر متصفح كروم.</span>
+              </div>
+              <div class="player-toolbar">
+                <button class="btn-small">تبديل جودة</button>
+                <button class="btn-small">قائمة القنوات</button>
+              </div>
             </div>
             <div class="stream-frame">
               <video controls poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80">
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
               </video>
               <div class="stream-placeholder">
-                <strong>البث سيتم تشغيله مباشرة هنا</strong>
-                <p>يمكنك استبدال المصدر برابط البث الحقيقي عند توفره.</p>
+                <strong>اضغط تشغيل للبث المباشر</strong>
+                <p>يمكنك استخدام هذا التصميم مع رابط بث مباشر حقيقي من أي قناة.</p>
               </div>
             </div>
             <div class="stream-meta">
-              <span>المباراة: بنجلادش ضد فرنسا</span>
-              <span>الجودة: HD</span>
+              <span id="current-match">المباراة: بنجلادش ضد فرنسا</span>
+              <span id="current-quality">الجودة: HD</span>
             </div>
           </div>
 
-          <div class="channel-grid">
-            <div class="channel-card active">
-              <div class="channel-title"><span>بين سبورت 1</span><span class="channel-chip">HD</span></div>
-              <p>قناة رئيسية للبث المباشر واللقاءات المهمة.</p>
+          <aside class="stream-sidebar">
+            <div class="guide-card">
+              <h4>كيف تعمل الواجهة</h4>
+              <p>اختر قناة من القائمة، ثم اضغط تشغيل في نافذة الفيديو، ويمكنك استخدام كروم لتجربة بث مباشر بجودة عالية.</p>
             </div>
-            <div class="channel-card">
-              <div class="channel-title"><span>بين سبورت 2</span><span class="channel-chip">مكرر</span></div>
-              <p>بث بديل مع تغطية كاملة للمباراة.</p>
+            <div class="channel-list">
+              <div class="channel-card active" data-title="بين سبورت 1" data-match="بنجلادش ضد فرنسا" data-quality="HD" data-src="https://www.w3schools.com/html/mov_bbb.mp4">
+                <div class="channel-title"><span>بين سبورت 1</span><span class="channel-chip">القناة الرئيسية</span></div>
+                <p>أهم المباريات وتحليل سريع للقاءات الرياضية.</p>
+              </div>
+              <div class="channel-card" data-title="بين سبورت 2" data-match="الأرجنتين ضد إسبانيا" data-quality="HD" data-src="https://www.w3schools.com/html/movie.mp4">
+                <div class="channel-title"><span>بين سبورت 2</span><span class="channel-chip">مكرر</span></div>
+                <p>بث بديل مع إعادة للمواجهات المهمة والتعليق العربي.</p>
+              </div>
+              <div class="channel-card" data-title="بين سبورت 3" data-match="تحليل فني مباشر" data-quality="SD" data-src="https://www.w3schools.com/html/mov_bbb.mp4">
+                <div class="channel-title"><span>بين سبورت 3</span><span class="channel-chip">تحليل</span></div>
+                <p>قناة مخصصة للتحليل والمحتوى الرياضي المباشر.</p>
+              </div>
             </div>
-            <div class="channel-card">
-              <div class="channel-title"><span>بين سبورت 3</span><span class="channel-chip">تفاعل</span></div>
-              <p>قناة مخصصة للتعليقات والتحليل المباشر.</p>
+            <div class="guide-card">
+              <h4>نصيحة العرض</h4>
+              <p>افتح الموقع في Chrome، وفعل الصوت، وأعد تحميل الصفحة إذا لم يعمل الفيديو أول مرة.</p>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
 
       <section id="matches" class="section">
-        <h2>المباريات القادمة</h2>
+        <div class="section-header">
+          <div>
+            <h2>المباريات القادمة</h2>
+            <p>أهم المواجهات القادمة، موعدها، ومعلومات إضافية عن كل مباراة.</p>
+          </div>
+        </div>
         <div class="matches-list">
           <article class="match-card">
-            <div class="match-top">نصف النهائي • الجمعة المقبلة</div>
+            <div class="match-top">نصف النهائي • السبت 3 أغسطس</div>
             <div class="teams"><span>بنجلادش</span><span>VS</span><span>فرنسا</span></div>
-            <div class="time">الوقت سيحدد لاحقاً</div>
-            <div class="details">المعلق: لاحقاً</div>
+            <div class="time">8:30 مساءً</div>
+            <div class="details">المعلق: محمد الحربي / الملعب: ملعب المدينة الرياضية</div>
           </article>
 
           <article class="match-card">
-            <div class="match-top">نصف النهائي • الجمعة المقبلة</div>
+            <div class="match-top">نصف النهائي • السبت 3 أغسطس</div>
             <div class="teams"><span>الأرجنتين</span><span>VS</span><span>إسبانيا</span></div>
-            <div class="time">الوقت سيحدد لاحقاً</div>
-            <div class="details">المعلق: لاحقاً</div>
+            <div class="time">11:00 مساءً</div>
+            <div class="details">المعلق: نادر الشمري / الملعب: استاد الأمير</div>
           </article>
         </div>
       </section>
 
       <section class="section">
         <div class="note-card">
-          <h3>ملاحظة مهمة</h3>
-          <p>جميع المباريات مرتبة في ترتيب المباريات القادمة، مع إبراز يوم البطولة وتوقيت كل مواجهة بشكل واضح ومحتوى رياضي احترافي.</p>
+          <h3>لماذا هذا الموقع؟</h3>
+          <p>تم تصميم الموقع ليقدم تجربة مبسطة وسريعة في متابعة البطولة، من الترتيب إلى البث المباشر، مع إبراز الرعاة والفرق والمواعيد المهمة داخل واجهة عربية واضحة.</p>
         </div>
       </section>
     </main>
   </div>
 
   <footer>
-    © 2026 دوري شركة تدوير البيئة الأهلية — waseem alnklane
+    <div class="footer-grid">
+      <span>© 2026 دوري شركة تدوير البيئة الأهلية</span>
+      <div class="footer-links">
+        <a href="#standings">الترتيب</a>
+        <a href="#live">البث</a>
+        <a href="#matches">المباريات</a>
+      </div>
+    </div>
+    <div>صمم بعناية لتجربة مشاهدة عربية مميزة — waseem alnklane</div>
   </footer>
+
+  <script>
+    const video = document.querySelector('.stream-frame video');
+    const placeholder = document.querySelector('.stream-placeholder');
+    const channelCards = document.querySelectorAll('.channel-card');
+    const currentMatch = document.getElementById('current-match');
+    const currentQuality = document.getElementById('current-quality');
+
+    const setChannel = (card) => {
+      channelCards.forEach((item) => item.classList.remove('active'));
+      card.classList.add('active');
+
+      if (video) {
+        const src = card.dataset.src;
+        const title = card.dataset.title;
+        const match = card.dataset.match;
+        const quality = card.dataset.quality;
+
+        if (src) {
+          video.querySelector('source').src = src;
+          video.load();
+        }
+        if (currentMatch) currentMatch.textContent = `المباراة: ${match}`;
+        if (currentQuality) currentQuality.textContent = `الجودة: ${quality}`;
+      }
+    };
+
+    if (video && placeholder) {
+      video.addEventListener('play', () => {
+        placeholder.style.display = 'none';
+      });
+      video.addEventListener('pause', () => {
+        placeholder.style.display = 'flex';
+      });
+      video.addEventListener('ended', () => {
+        placeholder.style.display = 'flex';
+      });
+    }
+
+    channelCards.forEach((card) => {
+      card.addEventListener('click', () => setChannel(card));
+    });
+
+    if (channelCards.length > 0) {
+      setChannel(channelCards[0]);
+    }
+  </script>
 </body>
 </html>
