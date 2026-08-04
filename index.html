@@ -663,12 +663,12 @@
               </div>
             </div>
             <div class="stream-frame">
-              <video controls poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+              <video id="live-video" controls poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80">
+                <source src="" type="application/vnd.apple.mpegurl" />
               </video>
               <div class="stream-placeholder">
-                <strong>اضغط تشغيل للبث المباشر</strong>
-                <p>يمكنك استخدام هذا التصميم مع رابط بث مباشر حقيقي من أي قناة.</p>
+                <strong>اضغط تشغيل للاستمتاع بالبث المباشر</strong>
+                <p>الواجهة جاهزة لتشغيل روابط بث مباشر عبر Chrome باستخدام HLS.</p>
               </div>
             </div>
             <div class="stream-meta">
@@ -680,25 +680,25 @@
           <aside class="stream-sidebar">
             <div class="guide-card">
               <h4>كيف تعمل الواجهة</h4>
-              <p>اختر قناة من القائمة، ثم اضغط تشغيل في نافذة الفيديو، ويمكنك استخدام كروم لتجربة بث مباشر بجودة عالية.</p>
+              <p>اختر قناة من القائمة، ثم اضغط تشغيل في نافذة الفيديو. الواجهة تدعم تشغيل HLS عبر Chrome باستخدام hls.js.</p>
             </div>
             <div class="channel-list">
-              <div class="channel-card active" data-title="بين سبورت 1" data-match="بنجلادش ضد فرنسا" data-quality="HD" data-src="https://www.w3schools.com/html/mov_bbb.mp4">
+              <div class="channel-card active" data-title="بين سبورت 1" data-match="بنجلادش ضد فرنسا" data-quality="HD" data-type="hls" data-src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">
                 <div class="channel-title"><span>بين سبورت 1</span><span class="channel-chip">القناة الرئيسية</span></div>
-                <p>أهم المباريات وتحليل سريع للقاءات الرياضية.</p>
+                <p>البث المباشر الرئيسي بأعلى جودة تجريبية.</p>
               </div>
-              <div class="channel-card" data-title="بين سبورت 2" data-match="الأرجنتين ضد إسبانيا" data-quality="HD" data-src="https://www.w3schools.com/html/movie.mp4">
+              <div class="channel-card" data-title="بين سبورت 2" data-match="الأرجنتين ضد إسبانيا" data-quality="HD" data-type="hls" data-src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">
                 <div class="channel-title"><span>بين سبورت 2</span><span class="channel-chip">مكرر</span></div>
-                <p>بث بديل مع إعادة للمواجهات المهمة والتعليق العربي.</p>
+                <p>بديل بث مباشر مع قناة احتياطية للاستمرار في المشاهدة.</p>
               </div>
-              <div class="channel-card" data-title="بين سبورت 3" data-match="تحليل فني مباشر" data-quality="SD" data-src="https://www.w3schools.com/html/mov_bbb.mp4">
+              <div class="channel-card" data-title="بين سبورت 3" data-match="تحليل فني مباشر" data-quality="SD" data-type="hls" data-src="https://test-streams.mux.dev/pts_shift/master.m3u8">
                 <div class="channel-title"><span>بين سبورت 3</span><span class="channel-chip">تحليل</span></div>
-                <p>قناة مخصصة للتحليل والمحتوى الرياضي المباشر.</p>
+                <p>مباشر لتحليل المباريات والمناظر الرياضية.</p>
               </div>
             </div>
             <div class="guide-card">
               <h4>نصيحة العرض</h4>
-              <p>افتح الموقع في Chrome، وفعل الصوت، وأعد تحميل الصفحة إذا لم يعمل الفيديو أول مرة.</p>
+              <p>افتح الموقع في Chrome، وفعل الصوت. إذا لم يعمل المصدر تلقائياً، اضغط زر التشغيل مرتين بعد تغيير القناة.</p>
             </div>
           </aside>
         </div>
@@ -749,29 +749,57 @@
     <div>صمم بعناية لتجربة مشاهدة عربية مميزة — waseem alnklane</div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    const video = document.querySelector('.stream-frame video');
+    const video = document.getElementById('live-video');
     const placeholder = document.querySelector('.stream-placeholder');
     const channelCards = document.querySelectorAll('.channel-card');
     const currentMatch = document.getElementById('current-match');
     const currentQuality = document.getElementById('current-quality');
+    const currentTitle = document.querySelector('.player-title h3');
+
+    let hls = null;
+
+    const loadSource = (src, type) => {
+      if (!video) return;
+
+      if (hls) {
+        hls.destroy();
+        hls = null;
+      }
+
+      if (type === 'hls') {
+        if (Hls.isSupported()) {
+          hls = new Hls();
+          hls.loadSource(src);
+          hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = src;
+        } else {
+          console.warn('HLS غير مدعوم في المتصفح');
+          video.src = src;
+        }
+      } else {
+        video.src = src;
+      }
+    };
 
     const setChannel = (card) => {
       channelCards.forEach((item) => item.classList.remove('active'));
       card.classList.add('active');
 
-      if (video) {
-        const src = card.dataset.src;
-        const title = card.dataset.title;
-        const match = card.dataset.match;
-        const quality = card.dataset.quality;
+      const src = card.dataset.src;
+      const type = card.dataset.type || 'mp4';
+      const match = card.dataset.match || 'بث مباشر';
+      const quality = card.dataset.quality || 'HD';
+      const title = card.dataset.title || 'قناة البث المباشر';
 
-        if (src) {
-          video.querySelector('source').src = src;
-          video.load();
-        }
-        if (currentMatch) currentMatch.textContent = `المباراة: ${match}`;
-        if (currentQuality) currentQuality.textContent = `الجودة: ${quality}`;
+      if (currentMatch) currentMatch.textContent = `المباراة: ${match}`;
+      if (currentQuality) currentQuality.textContent = `الجودة: ${quality}`;
+      if (currentTitle) currentTitle.textContent = title;
+
+      if (src) {
+        loadSource(src, type);
       }
     };
 
