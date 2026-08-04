@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دوري شركة تدوير البيئة الأهلية | بين سبوات</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0f1b2d;
+      --panel-2: #14253d;
+      --text: #f5f7fb;
+      --muted: #9fb0c7;
+      --accent: #ffb703;
+      --accent-2: #00d4ff ;
+      --border: rgba(255,255,255,0.12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #0d1f36 55%, #122845);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
+
+    .hero {
+      padding: 40px 0 24px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .hero-card, .group-card, .match-card, .note-card, .results-card, .scorers-card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-card { padding: 24px; }
+    .badge {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(0, 212, 255, 0.15);
+      color: var(--accent-2);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 12px; }
+    .hero p { color: var(--muted); }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), #ff8f00);
+      color: #111;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .info-box {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .info-box strong { display: block; margin-bottom: 4px; }
+    .info-box span { color: var(--muted); font-size: 0.9rem; }
+
+    .sponsor-card {
+      padding: 22px;
+      text-align: center;
+    }
+
+    .sponsor-card .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 8px 0;
+    }
+
+    .section { padding: 16px 0 8px; }
+    .section h2 { margin-bottom: 14px; font-size: 1.25rem; }
+
+    .groups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .group-card { padding: 18px; }
+    .group-card ul { list-style: none; padding: 0; margin: 10px 0 0; }
+    .group-card li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+    .group-card li:last-child { border-bottom: 0; }
+
+    .matches-list, .results-list, .scorers-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .match-card, .results-card, .scorers-card {
+      padding: 16px 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .match-top {
+      color: var(--accent-2);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .teams {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .time {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .details { color: var(--muted); font-size: 0.95rem; }
+
+    .result-row, .scorer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .result-row:last-child, .scorer-row:last-child { border-bottom: 0; }
+
+    .note-card { padding: 18px; margin: 10px 0 22px; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 0 28px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .groups { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-card">
+        <div class="badge">أهلاً وسهلاً بكم</div>
+        <h1>دوري شركة تدوير البيئة الأهلية</h1>
+        <p>أهلاً وسهلاً بكم في دوري شركة تدوير البيئة الأهلية، ويقدم هذا الموقع تجربة احترافية تعرض البطولة والفرق والنتائج المنتهية والمباريات القادمة بشكل واضح ومميز. الراعي الرسمي ناصر الذويب.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#matches">شاهد المباريات القادمة</a>
+          <a class="btn btn-secondary" href="../scorers.html">الترتيب والهدافون</a>
+        </div>
+        <div class="info-grid">
+          <div class="info-box"><strong>الموعد</strong><span>الجمعة 31/7/2026</span></div>
+          <div class="info-box"><strong>عدد المنتخبات</strong><span>6 منتخبات</span></div>
+          <div class="info-box"><strong>الترتيب</strong><span>المباريات القادمة أولاً</span></div>
+        </div>
+      </div>
+
+      <div class="hero-card sponsor-card">
+        <div class="badge">الراعي الرسمي</div>
+        <div class="logo">ناصر الذويب</div>
+        <p>دعم احترافي للبطولة ومواكبة كل فعالياتها الرياضية.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>الترتيب النهائي</h2>
+        <div class="groups">
+          <article class="group-card">
+            <h3>المجموعة A</h3>
+            <ul>
+              <li>1- بنجلادش — 6 نقاط</li>
+              <li>2- الأرجنتين — 3 نقاط</li>
+              <li>3- البرازيل — 0 نقاط</li>
+            </ul>
+          </article>
+          <article class="group-card">
+            <h3>المجموعة B</h3>
+            <ul>
+              <li>1- إسبانيا — 6 نقاط</li>
+              <li>2- فرنسا — 3 نقاط</li>
+              <li>3- السعودية — 0 نقاط</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>النتائج المنتهية</h2>
+        <div class="results-list">
+          <article class="results-card">
+            <div class="result-row"><span>الأرجنتين 4 - 1 البرازيل</span><span>المجموعة A</span></div>
+            <div class="result-row"><span>إسبانيا 8 - 0 السعودية</span><span>المجموعة B</span></div>
+            <div class="result-row"><span>بنجلادش 4 - 1 الأرجنتين</span><span>المجموعة A</span></div>
+            <div class="result-row"><span>إسبانيا 8 - 0 فرنسا</span><span>المجموعة B</span></div>
+            <div class="result-row"><span>البرازيل 2 - 1 بنجلادش</span><span>المجموعة A</span></div>
+            <div class="result-row"><span>فرنسا 2 - 1 السعودية</span><span>المجموعة B</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>أبرز الهدافين</h2>
+        <div class="scorers-list">
+          <article class="scorers-card">
+            <div class="scorer-row"><span>1- أسيل السماوي</span><span>6 أهداف | إسبانيا</span></div>
+            <div class="scorer-row"><span>2- هيثم السماوي</span><span>5 أهداف | إسبانيا</span></div>
+            <div class="scorer-row"><span>3- أسامه</span><span>3 أهداف | إسبانيا</span></div>
+            <div class="scorer-row"><span>4- محمد أجل</span><span>3 أهداف | بنجلادش</span></div>
+            <div class="scorer-row"><span>5- ثابت عياش</span><span>2 أهداف | البرازيل</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="matches" class="section">
+        <h2>المباريات القادمة</h2>
+        <div class="matches-list">
+          <article class="match-card">
+            <div class="match-top">نصف النهائي • الجمعة المقبلة</div>
+            <div class="teams"><span>بنجلادش</span><span>VS</span><span>فرنسا</span></div>
+            <div class="time">الوقت سيحدد لاحقاً</div>
+            <div class="details">المعلق: لاحقاً</div>
+          </article>
+
+          <article class="match-card">
+            <div class="match-top">نصف النهائي • الجمعة المقبلة</div>
+            <div class="teams"><span>الأرجنتين</span><span>VS</span><span>إسبانيا</span></div>
+            <div class="time">الوقت سيحدد لاحقاً</div>
+            <div class="details">المعلق: لاحقاً</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="note-card">
+          <h3>ملاحظة مهمة</h3>
+          <p>جميع المباريات مرتبة في ترتيب المباريات القادمة، مع إبراز يوم البطولة وتوقيت كل مواجهة بشكل واضح ومحتوى رياضي احترافي.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © 2026 دوري شركة تدوير البيئة الأهلية — waseem alnklane
+  </footer>
+</body>
+</html>
