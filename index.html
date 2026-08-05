@@ -3,484 +3,772 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>دوري شركة تدوير البيئة الأهلية | بث مباشر احترافي</title>
+  <title>منصة بث مباشر احترافية | كاميرا الجوال والدردشة</title>
   <style>
-    :root {
-      --bg: #020612;
-      --panel: #091025;
-      --panel-2: #11203c;
-      --text: #f9fbff;
-      --muted: #96a5c7;
-      --accent: #ffb703;
-      --accent-2: #00d4ff;
-      --border: rgba(255,255,255,0.12);
-      --surface: rgba(255,255,255,0.05);
-    }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-      background: radial-gradient(circle at top left, rgba(0,212,255,0.08), transparent 25%), linear-gradient(180deg, #020612 0%, #091a34 52%, #0c2346 100%);
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1180px, calc(100% - 30px)); margin: 0 auto; padding: 14px 0 24px; }
-
-    .topbar {
+      background: radial-gradient(circle at top left, rgba(36, 125, 255, 0.15), transparent 25%),
+                  linear-gradient(180deg, #050b1d 0%, #091d3b 48%, #081e44 100%);
+      color: #f0f6ff;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-      padding: 12px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      justify-content: center;
+      padding: 24px;
     }
-    .topbar .label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--muted); }
-    .topbar .brand { display: flex; flex-direction: column; gap: 4px; }
-    .topbar h1 { margin: 0; font-size: 1rem; letter-spacing: 0.01em; }
-    .topbar p { margin: 0; color: var(--muted); font-size: 0.86rem; }
 
-    .hero {
+    .container {
+      width: min(1220px, 100%);
       display: grid;
-      grid-template-columns: 1.45fr 0.95fr;
-      gap: 22px;
-      align-items: start;
-      margin-bottom: 24px;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 24px;
     }
 
     .card {
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      background: rgba(8, 16, 38, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
     }
-    .card-padding { padding: 26px; }
 
-    .hero-main { display: flex; flex-direction: column; justify-content: space-between; }
-    .hero-main h2 { margin: 0 0 12px; font-size: clamp(2.1rem, 3.8vw, 3.6rem); line-height: 1.05; }
-    .hero-main p { color: var(--muted); max-width: 620px; font-size: 1.02rem; }
-
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 22px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; font-weight: 700; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { padding: 14px 24px; background: linear-gradient(90deg, var(--accent), #ff9f03); color: #111; }
-    .btn-secondary { padding: 14px 22px; background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid rgba(255,255,255,0.12); }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 10px; }
-    .stat { padding: 16px 18px; border-radius: 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
-    .stat strong { display: block; margin-bottom: 6px; font-size: 0.95rem; }
-    .stat span { color: var(--muted); font-size: 0.93rem; }
-
-    .hero-side { display: grid; gap: 18px; }
-    .hero-side .badge { margin-bottom: 16px; }
-    .hero-side p { color: var(--muted); line-height: 1.8; }
-
-    .stats-card { display: grid; gap: 14px; padding: 18px; }
-    .stats-card strong { display: block; margin-bottom: 6px; }
-
-    .section {
-      margin-bottom: 24px;
+    header {
+      grid-column: 1 / -1;
+      padding: 30px 34px 26px;
+      text-align: center;
     }
-    .section-header {
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(77, 182, 255, 0.14);
+      color: #a6ecff;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 16px auto 0;
+      max-width: 760px;
+      color: #adbfda;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .video-panel,
+    .chat-panel {
+      display: grid;
+      gap: 0;
+    }
+
+    .panel-heading,
+    .share-heading,
+    .chat-heading {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+      padding: 26px 28px 0;
+    }
+
+    .panel-heading h2,
+    .share-heading h2,
+    .chat-heading h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .panel-heading span,
+    .share-heading span,
+    .chat-heading span {
+      color: #93a9c8;
+      font-size: 0.95rem;
+    }
+
+    .video-frame {
+      position: relative;
+      background: #000;
+      min-height: 450px;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #000;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+      color: #e7f2ff;
+      pointer-events: none;
+      background: radial-gradient(circle at top, rgba(77, 182, 255, 0.14), transparent 48%);
+    }
+
+    .overlay strong {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .overlay p {
+      margin: 0;
+      max-width: 520px;
+      color: #c8d6ea;
+      line-height: 1.75;
+    }
+
+    .broadcaster-controls {
+      padding: 24px 28px 28px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .control-row {
+      display: flex;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      gap: 12px;
     }
-    .section-header h3 { margin: 0; font-size: 1.35rem; }
-    .section-header p { margin: 4px 0 0; color: var(--muted); }
 
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-
-    .group-card, .match-card, .result-card, .scorer-card { padding: 20px; }
-    .group-card h4, .match-card h4 { margin: 0 0 10px; font-size: 1.1rem; }
-    .group-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-    .group-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .group-item strong { color: var(--text); }
-
-    .video-shell { display: grid; grid-template-columns: 1.5fr 0.95fr; gap: 20px; align-items: start; }
-    .video-player { overflow: hidden; }
-    .video-header { padding: 24px; display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .video-title h3 { margin: 0 0 10px; font-size: 1.35rem; }
-    .video-title span { display: block; color: var(--muted); font-size: 0.95rem; }
-
-    .video-toolbar { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn-small { border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.06); padding: 11px 14px; border-radius: 999px; color: var(--text); font-size: 0.9rem; }
-
-    .stream-frame { position: relative; min-height: 380px; background: #020612; }
-    video#live-video { width: 100%; height: 100%; min-height: 380px; background: #000; object-fit: cover; }
-    .video-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 24px; color: var(--muted); background: radial-gradient(circle at top, rgba(0,212,255,0.16), transparent 55%); pointer-events: none; }
-    .video-overlay strong { color: var(--text); font-size: 1.05rem; margin-bottom: 8px; }
-
-    .video-meta { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; padding: 18px 24px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.08); }
-
-    .sidebar { display: grid; gap: 16px; padding: 20px; }
-    .channel-card { padding: 16px 18px; border-radius: 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
-    .channel-card:hover { transform: translateY(-2px); }
-    .channel-card.active { border-color: var(--accent); background: rgba(255,183,3,0.12); }
-    .channel-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 700; }
-    .channel-chip { padding: 5px 10px; border-radius: 999px; background: rgba(0,212,255,0.16); color: var(--accent-2); font-size: 0.8rem; }
-    .channel-desc { color: var(--muted); font-size: 0.93rem; line-height: 1.6; }
-
-    .guide-card { padding: 18px 20px; border-radius: 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
-    .guide-card h4 { margin: 0 0 10px; font-size: 1rem; }
-    .guide-card p { margin: 0; color: var(--muted); line-height: 1.75; }
-
-    .result-card { display: grid; gap: 12px; }
-    .result-item { display: flex; justify-content: space-between; gap: 12px; align-items: center; color: var(--muted); padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .result-item:last-child { border-bottom: 0; }
-
-    .match-card .match-top { margin-bottom: 10px; }
-    .match-card .details { color: var(--muted); }
-
-    footer { margin-top: 4px; padding: 22px 0 32px; text-align: center; color: var(--muted); font-size: 0.94rem; }
-    .footer-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
-    .footer-links a { color: var(--muted); transition: color 0.2s ease; }
-    .footer-links a:hover { color: var(--text); }
-
-    @media (max-width: 980px) {
-      .hero, .video-shell { grid-template-columns: 1fr; }
-      .stats-grid, .grid-2 { grid-template-columns: 1fr; }
-      .topbar { flex-direction: column; align-items: stretch; }
-      .section-header { flex-direction: column; align-items: flex-start; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(90deg, #5cd6ff, #2f98ff);
+      color: #081526;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
     }
-    .alert-warning {
-      padding: 14px 18px;
-      margin-top: 14px;
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-outlined {
+      background: rgba(255,255,255,0.06);
+      color: #eef4ff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .status-box {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #d2e0ff;
+      display: grid;
+      gap: 6px;
+    }
+
+    .status-box strong {
+      font-weight: 700;
+      color: #f2fbff;
+    }
+
+    .monitor-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(92, 214, 255, 0.16);
+      background: rgba(5, 21, 53, 0.8);
+      color: #d2e0ff;
+      font-size: 0.95rem;
+      width: fit-content;
+    }
+
+    .monitor-card strong {
+      color: #ffffff;
+    }
+
+    .quality-box,
+    .quality-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #adbfda;
+      font-size: 0.95rem;
+    }
+
+    .quality-box select,
+    .quality-group select {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: #eef4ff;
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    .camera-preview {
+      border-radius: 22px;
+      overflow: hidden;
+      min-height: 220px;
+      background: #000;
+    }
+
+    .chat-window {
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 430px;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      display: grid;
+      gap: 10px;
+      padding-right: 4px;
+    }
+
+    .message {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 18px;
-      background: rgba(255,183,3,0.12);
-      color: #ffd166;
-      border: 1px solid rgba(255,183,3,0.22);
+      padding: 14px 16px;
+    }
+
+    .message strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #d1e6ff;
+    }
+
+    .message p {
+      margin: 0;
+      color: #e7f2ff;
+      line-height: 1.7;
+    }
+
+    .chat-form {
+      padding: 22px 26px 26px;
+      display: grid;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .chat-form input,
+    .chat-form textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: #eef4ff;
+      padding: 14px 16px;
+      font-size: 0.98rem;
+      outline: none;
+    }
+
+    .chat-form textarea { min-height: 100px; resize: vertical; }
+
+    .share-link {
+      padding: 26px 28px 28px;
+      display: grid;
+      gap: 12px;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .share-link input {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: #eef4ff;
+      padding: 14px 16px;
+      font-size: 0.95rem;
+    }
+
+    .share-link button {
+      width: 100%;
+    }
+
+    footer {
+      grid-column: 1 / -1;
+      padding: 16px 0 10px;
+      text-align: center;
+      color: #8e9fc6;
+      font-size: 0.95rem;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1020px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .panel-heading,
+      .chat-heading,
+      .share-heading { flex-direction: column; align-items: flex-start; }
+      .video-frame { min-height: 260px; }
+      .control-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="topbar">
-      <div class="label">🚀 أفضل من beIN Sports واجهة بث احترافية وموثوقة</div>
-      <div class="brand">
-        <h1>دوري شركة تدوير البيئة الأهلية</h1>
-        <p>البث المباشر نتائج ترتيب ومعلومات البطولة في صفحة واحدة احترافية.</p>
-      </div>
-    </div>
+    <header>
+      <div class="badge">منصة بث مباشر احترافية</div>
+      <h1>بث مباشر من كاميرا الجوال مع دردشة ومشاركة رابط مشاهدة</h1>
+      <p class="subtitle">واجهة عامة ومهنية للبث المباشر من الجوال. توفر بث WebRTC مباشر دردشة لمتابعيك وجودة مشاهدة تلقائية أو اختيارية.</p>
+    </header>
 
-    <section class="hero">
-      <article class="card hero-main card-padding">
+    <section class="card video-panel">
+      <div class="panel-heading">
         <div>
-          <div class="badge">البث المباشر الرسمي</div>
-          <h2>شاهد مباريات البطولة الآن بجودة عالية وتجربة مشابهة لتطبيقات التلفزيون المباشر</h2>
-          <p>واجهة بث متكاملة مع جدول مباريات نتائج ترتيب المجموعات وقنوات مباشرة تعمل في Chrome عبر HLS.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#live">شاهد البث الآن</a>
-            <a class="btn btn-secondary" href="#matches">مواعيد المباريات</a>
-            <a class="btn btn-secondary" href="#standings">ترتيب المجموعات</a>
-            <button class="btn btn-secondary" id="admin-access-btn">لوحة التحكم</button>
+          <h2>شاشة البث</h2>
+          <span id="stream-status">في انتظار بدء البث</span>
+        </div>
+        <div class="quality-box" id="viewer-quality-box">
+          <label>
+            جودة المشاهدة:
+            <select id="viewer-quality">
+              <option value="auto">تلقائي</option>
+              <option value="hd">HD</option>
+              <option value="sd">SD</option>
+              <option value="low">منخفض</option>
+            </select>
+          </label>
+        </div>
+        <span id="connection-status">الاتصال: غير متصل</span>
+      </div>
+
+      <div class="video-frame">
+        <video id="live-video" controls playsinline autoplay muted></video>
+        <div class="overlay" id="video-overlay">
+          <strong id="overlay-title">انتظر حتى يبدأ البث</strong>
+          <p id="overlay-text">افتح الكاميرا واضغط على "بدء البث". بعد بدء البث يمكنك مشاركة الرابط للمشاهدين.</p>
+        </div>
+      </div>
+
+      <div class="broadcaster-controls" id="broadcaster-controls">
+        <div class="control-row">
+          <button class="btn" id="start-camera-btn">فتح الكاميرا</button>
+          <button class="btn btn-outlined" id="start-broadcast-btn" disabled>بدء البث</button>
+          <button class="btn btn-outlined" id="stop-broadcast-btn" disabled>إيقاف البث</button>
+        </div>
+        <div class="control-row">
+          <div class="quality-group">
+            <label>
+              جودة البث:
+              <select id="broadcast-quality">
+                <option value="auto">افتراضي</option>
+                <option value="hd">HD</option>
+                <option value="sd">SD</option>
+                <option value="low">منخفض</option>
+              </select>
+            </label>
           </div>
         </div>
-        <div class="stats-grid">
-          <div class="stat"><strong>6 فرق</strong><span>المشاركة في البطولة</span></div>
-          <div class="stat"><strong>2 مجموعات</strong><span>مرحلة المجموعات الحالية</span></div>
-          <div class="stat"><strong>2 مباريات</strong><span>قادمة في نصف النهائي</span></div>
-        </div>
-      </article>
 
-      <aside class="card hero-side card-padding">
-        <div class="badge">الراعي الرسمي</div>
-        <div class="logo">ناصر الذويب</div>
-        <p>الدعم الرسمي للبطولة مقدما تجربة رياضية متكاملة وواجهة بث احترافية.</p>
-        <div class="stats-card">
-          <strong>البث المباشر</strong>
-          <span>تبديل القنوات والعمل في Chrome بأداء مستقر.</span>
+        <div class="status-box">
+          <strong>حالة البث</strong>
+          <span id="broadcaster-status">الكاميرا متوقفة لم يبدأ البث بعد.</span>
+          <span id="viewer-count">المشاهدون: 0</span>
         </div>
-        <div class="stats-card">
-          <strong>أحدث المعلومات</strong>
-          <span>ترتيب المجموعات والمباريات القادمة مع بيانات واضحة ومباشرة.</span>
+
+        <div class="camera-preview hidden" id="camera-preview-box">
+          <video id="camera-preview" autoplay muted playsinline></video>
         </div>
-      </aside>
+      </div>
+
+      <div class="share-link">
+        <div class="share-heading">
+          <h2>رابط المشاهدة</h2>
+          <span>انسخه وشاركه مع المشاهدين</span>
+        </div>
+        <input id="share-link" type="text" readonly />
+        <button class="btn btn-outlined" id="copy-link-btn">نسخ الرابط</button>
+      </div>
     </section>
 
-    <main>
-      <section id="standings" class="section">
-        <div class="section-header">
-          <div>
-            <h3>المجموعات والترتيب</h3>
-            <p>المراكز النهائية بعد مرحلة المجموعات والفرق المتأهلة.</p>
-          </div>
+    <aside class="card chat-panel">
+      <div class="chat-heading">
+        <div>
+          <h2>دردشة الجمهور</h2>
+          <span>تفاعل مباشر مع المتابعين</span>
         </div>
-        <div class="grid-2">
-          <article class="card group-card">
-            <h4>المجموعة A</h4>
-            <ul class="group-list">
-              <li class="group-item"><strong>بنجلادش</strong><span>6 نق</span></li>
-              <li class="group-item"><strong>الأرجنتين</strong><span>3 نق</span></li>
-              <li class="group-item"><strong>البرازيل</strong><span>0 نق</span></li>
-            </ul>
-          </article>
-          <article class="card group-card">
-            <h4>المجموعة B</h4>
-            <ul class="group-list">
-              <li class="group-item"><strong>إسبانيا</strong><span>6 نق</span></li>
-              <li class="group-item"><strong>فرنسا</strong><span>3 نق</span></li>
-              <li class="group-item"><strong>السعودية</strong><span>0 نق</span></li>
-            </ul>
-          </article>
-        </div>
-      </section>
+      </div>
+      <div class="chat-window">
+        <div class="messages" id="chat-messages"></div>
+      </div>
+      <form class="chat-form" id="chat-form">
+        <input id="name-input" type="text" placeholder="الاسم" value="مشاهد" />
+        <textarea id="chat-input" placeholder="اكتب رسالة..." required></textarea>
+        <button class="btn" type="submit">إرسال</button>
+      </form>
+    </aside>
 
-      <section class="section">
-        <div class="section-header">
-          <div>
-            <h3>الفرق المتأهلة</h3>
-            <p>أربعة فرق تنتقل إلى نصف النهائي مع حالة التأهل.</p>
-          </div>
-        </div>
-        <div class="grid-2">
-          <article class="card match-card">
-            <div class="match-top">المجموعة A - الأول</div>
-            <div class="teams"><strong>بنجلادش</strong><span>3 نقاط</span></div>
-            <div class="details">تأهلت بفارق الأهداف لتصبح في مركز الصدارة.</div>
-          </article>
-          <article class="card match-card">
-            <div class="match-top">المجموعة A - الثاني</div>
-            <div class="teams"><strong>الأرجنتين</strong><span>3 نقاط</span></div>
-            <div class="details">تأهلت بعد مباراة حاسمة وركلات ترجيح.</div>
-          </article>
-          <article class="card match-card">
-            <div class="match-top">المجموعة B - الأول</div>
-            <div class="teams"><strong>إسبانيا</strong><span>6 نقاط</span></div>
-            <div class="details">تصدر المجموعة بفوزين متتاليين.</div>
-          </article>
-          <article class="card match-card">
-            <div class="match-top">المجموعة B - الثاني</div>
-            <div class="teams"><strong>فرنسا</strong><span>3 نقاط</span></div>
-            <div class="details">تأهلت بعد منافسة قوية في الجولة الأخيرة.</div>
-          </article>
-        </div>
-      </section>
-
-      <section id="results" class="section">
-        <div class="section-header">
-          <div>
-            <h3>النتائج المنتهية</h3>
-            <p>ملخص مباريات البطولة حتى الآن.</p>
-          </div>
-        </div>
-        <article class="card result-card">
-          <div class="result-item"><span>الأرجنتين 4 - 1 البرازيل</span><span>المجموعة A</span></div>
-          <div class="result-item"><span>إسبانيا 8 - 0 السعودية</span><span>المجموعة B</span></div>
-          <div class="result-item"><span>بنجلادش 4 - 1 الأرجنتين</span><span>المجموعة A</span></div>
-          <div class="result-item"><span>إسبانيا 8 - 0 فرنسا</span><span>المجموعة B</span></div>
-          <div class="result-item"><span>البرازيل 2 - 1 بنجلادش</span><span>المجموعة A</span></div>
-          <div class="result-item"><span>فرنسا 2 - 1 السعودية</span><span>المجموعة B</span></div>
-        </article>
-      </section>
-
-      <section id="live" class="section">
-        <div class="section-header">
-          <div>
-            <h3>واجهة البث الحي</h3>
-            <p>تشغيل HLS مباشر في كروم مع تبديل القناة والتحديث التلقائي.</p>
-          </div>
-          <span class="badge">قنوات حقيقية</span>
-        </div>
-        <div class="video-shell">
-          <article class="card video-player">
-            <div class="video-header">
-              <div class="video-title">
-                <div class="badge">LIVE NOW</div>
-                <h3>beIN Sports 1</h3>
-                <span>البث يعمل عبر كروم بنظام HLS مع اختيار قناة سريع.</span>
-              </div>
-              <div class="video-toolbar">
-                <button class="btn-small">تبديل جودة</button>
-                <button class="btn-small">تحديث البث</button>
-              </div>
-            </div>
-            <div class="stream-frame">
-              <video id="live-video" controls poster="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80">
-                <source src="" type="application/vnd.apple.mpegurl" />
-              </video>
-              <div class="video-overlay">
-                <strong>اضغط تشغيل لبدء البث المباشر</strong>
-                <p>واجهة احترافية لدعم روابط بث HLS داخل المتصفح.</p>
-              </div>
-            </div>
-            <div class="video-meta">
-              <span id="current-match">المباراة: بنجلادش ضد فرنسا</span>
-              <span id="current-quality">الجودة: HD</span>
-            </div>
-          </article>
-
-          <aside class="sidebar card">
-            <div class="guide-card">
-              <h4>قنوات متاحة</h4>
-              <p>اختر أي قناة من القائمة لبدء البث. يمكنك استبدال الروابط الحالية بروابط بث حقيقي خاصة بك.</p>
-            </div>
-            <div class="channel-card active" data-title="beIN Sports 1" data-match="بنجلادش ضد فرنسا" data-quality="HD" data-type="hls" data-src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">
-              <div class="channel-top"><span>beIN Sports 1</span><span class="channel-chip">رئيسية</span></div>
-              <div class="channel-desc">أفضل قناة للبث الرئيسي للمباراة الحالية.</div>
-            </div>
-            <div class="channel-card" data-title="beIN Sports 2" data-match="الأرجنتين ضد إسبانيا" data-quality="HD" data-type="hls" data-src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">
-              <div class="channel-top"><span>beIN Sports 2</span><span class="channel-chip">احتياطية</span></div>
-              <div class="channel-desc">قناة بديلة للبث المباشر في حال تعذر الأول.</div>
-            </div>
-            <div class="channel-card" data-title="beIN Sports 3" data-match="تحليل المباريات" data-quality="SD" data-type="hls" data-src="https://test-streams.mux.dev/pts_shift/master.m3u8">
-              <div class="channel-top"><span>beIN Sports 3</span><span class="channel-chip">تحليل</span></div>
-              <div class="channel-desc">مباشر للتحليل والتعليق الرياضي.</div>
-            </div>
-            <div class="guide-card">
-              <h4>معلومة مهمة</h4>
-              <p>روابط البث الحالية تجريبية يمكنك تغييرها بأي رابط HLS حقيقي لتصبح القنوات حقيقية 100%.</p>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section id="matches" class="section">
-        <div class="section-header">
-          <div>
-            <h3>مباريات نصف النهائي القادمة</h3>
-            <p>المواجهات القوية القادمة وتوقيت كل مباراة.</p>
-          </div>
-        </div>
-        <div class="grid-2">
-          <article class="card match-card">
-            <div class="match-top">نصف النهائي الأول</div>
-            <div class="teams"><strong>بنجلادش</strong><span>VS</span><strong>فرنسا</strong></div>
-            <div class="time">8:30 مساء</div>
-            <div class="details">المعلق: محمد الحربي • ملعب المدينة الرياضية</div>
-          </article>
-          <article class="card match-card">
-            <div class="match-top">نصف النهائي الثاني</div>
-            <div class="teams"><strong>الأرجنتين</strong><span>VS</span><strong>إسبانيا</strong></div>
-            <div class="time">11:00 مساء</div>
-            <div class="details">المعلق: نادر الشمري • استاد الأمير</div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="card note-card">
-          <h4>لماذا هذه الواجهة أفضل</h4>
-          <p>واجهة مصممة لتقديم بث مباشر احترافي مشاهد رياضية عربية واضحة ومعلومات البطولة بسهولة. يمكنك الاعتماد على تصميم أقوى وأسرع من النموذج المرجعي.</p>
-        </div>
-      </section>
-
-      <section id="admin" class="section">
-        <div class="section-header">
-          <div>
-            <h3>رابط التحكم</h3>
-            <p>زر للوصول السريع إلى لوحة التحكم أو صفحة الإدارة الخاصة بالموقع.</p>
-          </div>
-        </div>
-        <article class="card guide-card">
-          <h4>لوحة التحكم</h4>
-          <p>يمكنك الدخول فقط إذا كنت تملك رمز التحكم الخاص بي.</p>
-          <p><button class="btn btn-secondary" id="admin-panel-btn">افتح لوحة التحكم</button></p>
-          <p>الرمز المطلوب هو <strong>71588</strong>.</p>
-          <div id="admin-success" class="card guide-card" style="display:none; margin-top: 16px;">
-            <h4>تم تأكيد الهوية</h4>
-            <p>يمكنك الآن الدخول إلى رابط الإدارة الخاص بك.</p>
-            <p><a id="admin-link" href="https://example.com/admin?code=71588" target="_blank" rel="noopener" class="btn btn-secondary">فتح لوحة التحكم</a></p>
-          </div>
-        </article>
-      </section>
-    </main>
+    <footer>تصميم واجهة احترافية للبث المباشر عبر الجوال مع دردشة ومشاركة رابط مشاهدة.</footer>
   </div>
 
-  <footer>
-    <div>© 2026 دوري شركة تدوير البيئة الأهلية — تصميم بث مباشر احترافي</div>
-    <div class="footer-links">
-      <a href="#standings">الترتيب</a>
-      <a href="#live">البث</a>
-      <a href="#matches">المباريات</a>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
-    const video = document.getElementById('live-video');
-    const channelCards = document.querySelectorAll('.channel-card');
-    const currentMatch = document.getElementById('current-match');
-    const currentQuality = document.getElementById('current-quality');
-    const currentTitle = document.querySelector('.video-title h3');
-    let hls = null;
+    const isViewer = new URLSearchParams(location.search).has('watch');
+    const shareInput = document.getElementById('share-link');
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+    const startCameraBtn = document.getElementById('start-camera-btn');
+    const startBroadcastBtn = document.getElementById('start-broadcast-btn');
+    const stopBroadcastBtn = document.getElementById('stop-broadcast-btn');
+    const broadcasterControls = document.getElementById('broadcaster-controls');
+    const cameraBox = document.getElementById('camera-preview-box');
+    const cameraPreview = document.getElementById('camera-preview');
+    const liveVideo = document.getElementById('live-video');
+    const overlay = document.getElementById('video-overlay');
+    const overlayTitle = document.getElementById('overlay-title');
+    const overlayText = document.getElementById('overlay-text');
+    const streamStatus = document.getElementById('stream-status');
+    const connectionStatus = document.getElementById('connection-status');
+    const broadcasterStatus = document.getElementById('broadcaster-status');
+    const viewerCountDisplay = document.getElementById('viewer-count');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const nameInput = document.getElementById('name-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const broadcastQualitySelect = document.getElementById('broadcast-quality');
+    const viewerQualitySelect = document.getElementById('viewer-quality');
+    const viewerQualityBox = document.getElementById('viewer-quality-box');
 
-    const loadSource = (src, type) => {
-      if (!video) return;
-      if (hls) {
-        hls.destroy();
-        hls = null;
-      }
-      if (type === 'hls') {
-        if (Hls.isSupported()) {
-          hls = new Hls();
-          hls.loadSource(src);
-          hls.attachMedia(video);
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = src;
-        } else {
-          video.src = src;
-        }
+    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.hostname}:8080`;
+    let signalingSocket = null;
+    let cameraStream = null;
+    let viewerPC = null;
+    let broadcasterPCs = {};
+    let currentViewerId = null;
+
+    const shareLink = `${location.origin}${location.pathname}?watch=1`;
+    shareInput.value = shareLink;
+
+    if (isViewer) {
+      broadcasterControls.classList.add('hidden');
+      shareInput.closest('.share-link').classList.add('hidden');
+      viewerQualityBox.classList.remove('hidden');
+      overlayTitle.textContent = 'في انتظار البث';
+      overlayText.textContent = 'عند بدء البث من المذيع سيظهر الفيديو هنا تلقائيا.';
+    } else {
+      viewerQualityBox.classList.add('hidden');
+    }
+
+    const appendMessage = (name, text) => {
+      const messageItem = document.createElement('div');
+      messageItem.className = 'message';
+      messageItem.innerHTML = `<strong>${name}</strong><p>${text}</p>`;
+      chatMessages.appendChild(messageItem);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const appendChatHistory = (history) => {
+      history.forEach(({ name, text }) => appendMessage(name, text));
+    };
+
+    const updateConnection = (text) => {
+      connectionStatus.textContent = `الاتصال: ${text}`;
+    };
+
+    const updateStreamStatus = (text) => {
+      streamStatus.textContent = text;
+    };
+
+    const updateViewerCount = (count) => {
+      viewerCountDisplay.textContent = `المشاهدون: ${count}`;
+    };
+
+    const showStatus = (title, text) => {
+      overlayTitle.textContent = title;
+      overlayText.textContent = text;
+      overlay.classList.remove('hidden');
+    };
+
+    const hideOverlay = () => {
+      overlay.classList.add('hidden');
+    };
+
+    const getCameraConstraints = (quality) => {
+      const presets = {
+        auto: { width: { ideal: 1280 }, height: { ideal: 720 } },
+        hd: { width: { ideal: 1280 }, height: { ideal: 720 } },
+        sd: { width: { ideal: 854 }, height: { ideal: 480 } },
+        low: { width: { ideal: 640 }, height: { ideal: 360 } },
+      };
+      return { audio: true, video: { facingMode: 'environment', ...presets[quality] } };
+    };
+
+    const applyQualityToSender = async (sender, quality) => {
+      if (!sender || !sender.getParameters) return;
+      const params = sender.getParameters();
+      if (!params.encodings) params.encodings = [{}];
+      const bitrate = {
+        hd: 2500000,
+        sd: 900000,
+        low: 450000,
+      }[quality];
+
+      if (bitrate) {
+        params.encodings[0].maxBitrate = bitrate;
       } else {
-        video.src = src;
+        delete params.encodings[0].maxBitrate;
+      }
+
+      try {
+        await sender.setParameters(params);
+      } catch (error) {
+        console.warn('فشل تطبيق جودة البث:', error);
       }
     };
 
-    const setChannel = (card) => {
-      channelCards.forEach((item) => item.classList.remove('active'));
-      card.classList.add('active');
-      const src = card.dataset.src;
-      const type = card.dataset.type || 'mp4';
-      const match = card.dataset.match || 'البث المباشر';
-      const quality = card.dataset.quality || 'HD';
-      const title = card.dataset.title || 'قناة حية';
-      if (currentMatch) currentMatch.textContent = `المباراة: ${match}`;
-      if (currentQuality) currentQuality.textContent = `الجودة: ${quality}`;
-      if (currentTitle) currentTitle.textContent = title;
-      if (src) loadSource(src, type);
+    const setViewerQuality = async (viewerId, quality) => {
+      const record = broadcasterPCs[viewerId];
+      if (!record || !record.pc) return;
+      const sender = record.pc.getSenders().find((s) => s.track && s.track.kind === 'video');
+      if (!sender) return;
+      record.quality = quality;
+      await applyQualityToSender(sender, quality);
     };
 
-    channelCards.forEach((card) => {
-      card.addEventListener('click', () => setChannel(card));
+    const createViewerPeer = () => {
+      const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+      pc.ontrack = (event) => {
+        liveVideo.srcObject = event.streams[0];
+        liveVideo.play().catch(() => {});
+      };
+      pc.onicecandidate = (event) => {
+        if (event.candidate && currentViewerId) {
+          signalingSocket.send(JSON.stringify({ type: 'candidate', target: 'broadcaster', candidate: event.candidate, viewerId: currentViewerId }));
+        }
+      };
+      return pc;
+    };
+
+    const createBroadcasterPeer = async (viewerId) => {
+      if (!cameraStream) return;
+      const pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+      cameraStream.getTracks().forEach((track) => pc.addTrack(track, cameraStream));
+      pc.onicecandidate = (event) => {
+        if (event.candidate) {
+          signalingSocket.send(JSON.stringify({ type: 'candidate', target: viewerId, candidate: event.candidate, viewerId }));
+        }
+      };
+      pc.onconnectionstatechange = () => {
+        if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed') {
+          pc.close();
+          delete broadcasterPCs[viewerId];
+        }
+      };
+      broadcasterPCs[viewerId] = { pc, quality: 'auto' };
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+      signalingSocket.send(JSON.stringify({ type: 'offer', sdp: offer.sdp, viewerId }));
+    };
+
+    const startCamera = async () => {
+      try {
+        const quality = broadcastQualitySelect?.value || 'auto';
+        const constraints = getCameraConstraints(quality);
+        cameraStream = await navigator.mediaDevices.getUserMedia(constraints);
+        cameraPreview.srcObject = cameraStream;
+        cameraPreview.play().catch(() => {});
+        cameraBox.classList.remove('hidden');
+        broadcasterStatus.textContent = 'الكاميرا تعمل وجاهزة للبث.';
+        startBroadcastBtn.disabled = false;
+        startCameraBtn.disabled = true;
+      } catch (error) {
+        broadcasterStatus.textContent = 'تعذر الوصول إلى الكاميرا. تحقق من الأذونات.';
+      }
+    };
+
+    const stopCamera = () => {
+      if (!cameraStream) return;
+      cameraStream.getTracks().forEach((track) => track.stop());
+      cameraStream = null;
+      cameraPreview.srcObject = null;
+      cameraBox.classList.add('hidden');
+      broadcasterStatus.textContent = 'الكاميرا متوقفة.';
+      startBroadcastBtn.disabled = true;
+      startCameraBtn.disabled = false;
+    };
+
+    const connectWebSocket = () => {
+      if (signalingSocket && signalingSocket.readyState === WebSocket.OPEN) return signalingSocket;
+      signalingSocket = new WebSocket(signalingUrl);
+
+      signalingSocket.addEventListener('open', () => {
+        updateConnection('متصل');
+        if (isViewer) signalingSocket.send(JSON.stringify({ type: 'watcher' }));
+      });
+
+      signalingSocket.addEventListener('message', async (event) => {
+        let data;
+        try { data = JSON.parse(event.data); } catch { return; }
+
+        if (data.type === 'chat-history') {
+          appendChatHistory(data.history || []);
+        }
+
+        if (data.type === 'watcher-join') {
+          await createBroadcasterPeer(data.viewerId);
+          broadcasterStatus.textContent = 'مشاهد جديد انضم. البث يتم إرساله الآن.';
+        }
+
+        if (data.type === 'watcher-offer') {
+          currentViewerId = data.viewerId;
+          viewerPC = createViewerPeer();
+          await viewerPC.setRemoteDescription({ type: 'offer', sdp: data.sdp });
+          const answer = await viewerPC.createAnswer();
+          await viewerPC.setLocalDescription(answer);
+          signalingSocket.send(JSON.stringify({ type: 'answer', sdp: answer.sdp, viewerId: currentViewerId }));
+          updateStreamStatus('بث مباشر');
+          hideOverlay();
+        }
+
+        if (data.type === 'watcher-answer') {
+          const record = broadcasterPCs[data.viewerId];
+          if (record && record.pc) await record.pc.setRemoteDescription({ type: 'answer', sdp: data.sdp });
+        }
+
+        if (data.type === 'ice-candidate') {
+          const candidate = new RTCIceCandidate(data.candidate);
+          if (isViewer && viewerPC) {
+            viewerPC.addIceCandidate(candidate).catch(() => {});
+          }
+          if (!isViewer) {
+            const record = broadcasterPCs[data.viewerId];
+            if (record && record.pc) record.pc.addIceCandidate(candidate).catch(() => {});
+          }
+        }
+
+        if (data.type === 'quality-request' && !isViewer) {
+          await setViewerQuality(data.viewerId, data.quality);
+        }
+
+        if (data.type === 'viewer-count' && !isViewer) {
+          updateViewerCount(data.count || 0);
+        }
+
+        if (data.type === 'broadcast-ended') {
+          updateStreamStatus('انتهى البث');
+          showStatus('انتهى البث', 'انتهى البث أو تم إيقافه من المذيع.');
+          if (liveVideo.srcObject) {
+            liveVideo.srcObject.getTracks().forEach((track) => track.stop());
+            liveVideo.srcObject = null;
+          }
+        }
+
+        if (data.type === 'no-broadcaster') {
+          showStatus('لا يوجد بث الآن', 'لم يبدأ البث بعد. انتظر المذيع أو أعد تحميل الصفحة.');
+        }
+
+        if (data.type === 'broadcast-status' && !data.active && isViewer) {
+          showStatus('لا يوجد بث الآن', 'المذيع غير متصل أو أوقف البث.');
+        }
+
+        if (data.type === 'chat-message') {
+          appendMessage(data.name || 'مشاهد', data.text || '');
+        }
+      });
+
+      signalingSocket.addEventListener('close', () => updateConnection('مغلق'));
+      signalingSocket.addEventListener('error', () => updateConnection('خطأ'));
+
+      return signalingSocket;
+    };
+
+    const startBroadcast = () => {
+      if (!cameraStream) {
+        broadcasterStatus.textContent = 'افتح الكاميرا أولا.';
+        return;
+      }
+      const socket = connectWebSocket();
+      const sendBroadcaster = () => {
+        socket.send(JSON.stringify({ type: 'broadcaster' }));
+        broadcasterStatus.textContent = 'البث يعمل الآن. شارك الرابط للمشاهدين.';
+        startBroadcastBtn.disabled = true;
+        stopBroadcastBtn.disabled = false;
+        updateStreamStatus('بث مباشر');
+        hideOverlay();
+      };
+      if (socket.readyState === WebSocket.OPEN) sendBroadcaster();
+      else socket.addEventListener('open', sendBroadcaster, { once: true });
+    };
+
+    const stopBroadcast = () => {
+      if (signalingSocket && signalingSocket.readyState === WebSocket.OPEN) {
+        signalingSocket.send(JSON.stringify({ type: 'stop-broadcast' }));
+      }
+      Object.values(broadcasterPCs).forEach((record) => record.pc && record.pc.close());
+      broadcasterPCs = {};
+      stopCamera();
+      startBroadcastBtn.disabled = true;
+      stopBroadcastBtn.disabled = true;
+      broadcasterStatus.textContent = 'تم إيقاف البث.';
+      updateStreamStatus('متوقف');
+      updateViewerCount(0);
+      showStatus('تم إيقاف البث', 'يمكنك إعادة تشغيله عندما تكون جاهزا.');
+    };
+
+    const sendChatMessage = (event) => {
+      event.preventDefault();
+      const name = nameInput.value.trim() || 'مشاهد';
+      const text = chatInput.value.trim();
+      if (!text || !signalingSocket || signalingSocket.readyState !== WebSocket.OPEN) return;
+      signalingSocket.send(JSON.stringify({ type: 'chat', name, text }));
+      appendMessage(name, text);
+      chatInput.value = '';
+    };
+
+    const requestViewerQuality = () => {
+      if (!signalingSocket || signalingSocket.readyState !== WebSocket.OPEN) return;
+      signalingSocket.send(JSON.stringify({ type: 'quality', quality: viewerQualitySelect.value }));
+      streamStatus.textContent = `جودة المشاهدة: ${viewerQualitySelect.options[viewerQualitySelect.selectedIndex].text}`;
+    };
+
+    const copyLink = () => {
+      shareInput.select();
+      document.execCommand('copy');
+      copyLinkBtn.textContent = 'تم النسخ';
+      setTimeout(() => { copyLinkBtn.textContent = 'نسخ الرابط'; }, 1500);
+    };
+
+    copyLinkBtn.addEventListener('click', copyLink);
+    startCameraBtn.addEventListener('click', startCamera);
+    startBroadcastBtn.addEventListener('click', startBroadcast);
+    stopBroadcastBtn.addEventListener('click', stopBroadcast);
+    chatForm.addEventListener('submit', sendChatMessage);
+    viewerQualitySelect.addEventListener('change', requestViewerQuality);
+
+    broadcastQualitySelect.addEventListener('change', () => {
+      broadcasterStatus.textContent = `اخترت جودة بث ${broadcastQualitySelect.options[broadcastQualitySelect.selectedIndex].text}. افتح الكاميرا مرة أخرى لتطبيقها.`;
     });
 
-    if (channelCards.length > 0) setChannel(channelCards[0]);
-
-    const adminButton = document.getElementById('admin-access-btn');
-    const adminPanelBtn = document.getElementById('admin-panel-btn');
-    const adminSuccess = document.getElementById('admin-success');
-    const adminLink = document.getElementById('admin-link');
-    const adminSecret = '71588';
-    const adminUrl = 'https://example.com/admin?code=71588';
-
-    const requestAdminAccess = () => {
-      const code = prompt('أدخل رمز التحكم الخاص بك');
-      if (code === adminSecret) {
-        adminSuccess.style.display = 'block';
-        adminLink.href = adminUrl;
-        alert('تم التحقق! يمكنك الآن الدخول إلى لوحة التحكم.');
-      } else if (code !== null) {
-        alert('الرمز غير صحيح. حاول مرة أخرى.');
-      }
-    };
-
-    if (adminButton) {
-      adminButton.addEventListener('click', requestAdminAccess);
-    }
-
-    if (adminPanelBtn) {
-      adminPanelBtn.addEventListener('click', requestAdminAccess);
-    }
+    if (isViewer) connectWebSocket();
+    else updateConnection('جاهز للاتصال');
   </script>
 </body>
 </html>
