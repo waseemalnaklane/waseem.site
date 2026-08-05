@@ -467,6 +467,7 @@
   <script>
     const isViewer = new URLSearchParams(location.search).has('watch');
     const isFileProtocol = location.protocol === 'file:';
+    const defaultHost = 'localhost:8080';
     const shareInput = document.getElementById('share-link');
     const copyLinkBtn = document.getElementById('copy-link-btn');
     const startCameraBtn = document.getElementById('start-camera-btn');
@@ -491,7 +492,8 @@
     const viewerQualitySelect = document.getElementById('viewer-quality');
     const viewerQualityBox = document.getElementById('viewer-quality-box');
 
-    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host || 'localhost:8081'}`;
+    const signalingHost = isFileProtocol ? defaultHost : (location.host || defaultHost);
+    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${signalingHost}`;
     console.log('Signaling URL:', signalingUrl);
     let signalingSocket = null;
     let cameraStream = null;
@@ -499,7 +501,7 @@
     let broadcasterPCs = {};
     let currentViewerId = null;
 
-    const shareLink = `${location.origin}${location.pathname}?watch=1`;
+    const shareLink = `${isFileProtocol ? 'http://localhost:8080' : location.origin}${location.pathname}?watch=1`;
     shareInput.value = shareLink;
 
     if (isViewer) {
@@ -755,7 +757,7 @@
       signalingSocket.addEventListener('error', (event) => {
         console.error('WebSocket error', event);
         updateConnection('خطأ');
-        broadcasterStatus.textContent = 'خطأ في الاتصال بخادم الإشارة. تأكد أن الخادم يعمل على المنفذ الصحيح.';
+        broadcasterStatus.textContent = 'خطأ في الاتصال بخادم الإشارة. تأكد من تشغيل الخادم على http://localhost:8080.';
       });
 
       signalingSocket.addEventListener('close', () => {
