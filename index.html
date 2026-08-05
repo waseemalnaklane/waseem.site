@@ -636,6 +636,8 @@
     };
 
     const startCamera = async () => {
+      console.log('startCamera called');
+      broadcasterStatus.textContent = 'جاري فتح الكاميرا...';
       try {
         const quality = broadcastQualitySelect?.value || 'auto';
         const constraints = getCameraConstraints(quality);
@@ -648,6 +650,7 @@
         startCameraBtn.disabled = true;
         return true;
       } catch (error) {
+        console.warn('startCamera error:', error);
         broadcasterStatus.textContent = 'تعذر الوصول إلى الكاميرا. تحقق من الأذونات.';
         return false;
       }
@@ -666,9 +669,11 @@
 
     const connectWebSocket = () => {
       if (signalingSocket && signalingSocket.readyState === WebSocket.OPEN) return signalingSocket;
+      console.log('Connecting WebSocket to', signalingUrl);
       signalingSocket = new WebSocket(signalingUrl);
 
       signalingSocket.addEventListener('open', () => {
+        console.log('WebSocket connected');
         updateConnection('متصل');
         if (isViewer) signalingSocket.send(JSON.stringify({ type: 'watcher' }));
       });
@@ -743,8 +748,12 @@
         }
       });
 
-      signalingSocket.addEventListener('close', () => updateConnection('مغلق'));
-      signalingSocket.addEventListener('error', () => {
+      signalingSocket.addEventListener('close', () => {
+        console.warn('WebSocket closed');
+        updateConnection('مغلق');
+      });
+      signalingSocket.addEventListener('error', (event) => {
+        console.error('WebSocket error', event);
         updateConnection('خطأ');
         broadcasterStatus.textContent = 'خطأ في الاتصال بخادم الإشارة. تأكد أن الخادم يعمل على المنفذ الصحيح.';
       });
@@ -760,12 +769,14 @@
     };
 
     const startBroadcast = async () => {
+      console.log('startBroadcast called');
       if (!cameraStream) {
         const cameraStarted = await startCamera();
         if (!cameraStarted) return;
       }
       const socket = connectWebSocket();
       const sendBroadcaster = () => {
+        console.log('sendBroadcaster state', socket.readyState);
         if (socket.readyState !== WebSocket.OPEN) {
           broadcasterStatus.textContent = 'في انتظار اتصال الخادم...';
           return;
