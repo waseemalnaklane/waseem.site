@@ -406,7 +406,7 @@
       <div class="broadcaster-controls" id="broadcaster-controls">
         <div class="control-row">
           <button class="btn" id="start-camera-btn">فتح الكاميرا</button>
-          <button class="btn btn-outlined" id="start-broadcast-btn" disabled>بدء البث</button>
+          <button class="btn btn-outlined" id="start-broadcast-btn">بدء البث</button>
           <button class="btn btn-outlined" id="stop-broadcast-btn" disabled>إيقاف البث</button>
         </div>
         <div class="control-row">
@@ -491,7 +491,7 @@
     const viewerQualitySelect = document.getElementById('viewer-quality');
     const viewerQualityBox = document.getElementById('viewer-quality-box');
 
-    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host || 'localhost:8080'}`;
+    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host || 'localhost:8081'}`;
     console.log('Signaling URL:', signalingUrl);
     let signalingSocket = null;
     let cameraStream = null;
@@ -501,16 +501,7 @@
 
     const shareLink = `${location.origin}${location.pathname}?watch=1`;
     shareInput.value = shareLink;
-    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host || 'localhost:8081'}`;
-    console.log('Signaling URL:', signalingUrl);
 
-    if (isFileProtocol) {
-      updateConnection('افتح الصفحة عبر خادم محلي');
-      broadcasterStatus.textContent = 'لا يمكن تشغيل البث من ملف محلي، افتح الصفحة عبر خادم Node.';
-      showStatus('افتح الصفحة عبر الخادم', 'استخدم الأمر node server.js ثم افتح http://localhost:8081');
-      startCameraBtn.disabled = true;
-      startBroadcastBtn.disabled = true;
-    }
     if (isViewer) {
       broadcasterControls.classList.add('hidden');
       shareInput.closest('.share-link').classList.add('hidden');
@@ -541,6 +532,12 @@
       streamStatus.textContent = text;
     };
 
+    const showStatus = (title, text) => {
+      overlayTitle.textContent = title;
+      overlayText.textContent = text;
+      overlay.classList.remove('hidden');
+    };
+
     const updateViewerCount = (count) => {
       viewerCountDisplay.textContent = `المشاهدون: ${count}`;
     };
@@ -549,7 +546,15 @@
       liveVideo.muted = false;
     }
 
-    const showStatus = (title, text) => {
+    if (isFileProtocol) {
+      updateConnection('افتح الصفحة عبر خادم محلي');
+      broadcasterStatus.textContent = 'لا يمكن تشغيل البث من ملف محلي، افتح الصفحة عبر خادم Node.';
+      showStatus('افتح الصفحة عبر الخادم', 'استخدم الأمر node server.js ثم افتح http://localhost:8081');
+      startCameraBtn.disabled = true;
+      startBroadcastBtn.disabled = true;
+    }
+
+    const hideOverlay = () => {
       overlayTitle.textContent = title;
       overlayText.textContent = text;
       overlay.classList.remove('hidden');
@@ -647,8 +652,10 @@
         broadcasterStatus.textContent = 'الكاميرا تعمل وجاهزة للبث.';
         startBroadcastBtn.disabled = false;
         startCameraBtn.disabled = true;
+        return true;
       } catch (error) {
         broadcasterStatus.textContent = 'تعذر الوصول إلى الكاميرا. تحقق من الأذونات.';
+        return false;
       }
     };
 
@@ -758,10 +765,10 @@
       return signalingSocket;
     };
 
-    const startBroadcast = () => {
+    const startBroadcast = async () => {
       if (!cameraStream) {
-        broadcasterStatus.textContent = 'افتح الكاميرا أولا.';
-        return;
+        const cameraStarted = await startCamera();
+        if (!cameraStarted) return;
       }
       const socket = connectWebSocket();
       const sendBroadcaster = () => {
