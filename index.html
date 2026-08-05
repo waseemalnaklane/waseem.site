@@ -466,6 +466,7 @@
 
   <script>
     const isViewer = new URLSearchParams(location.search).has('watch');
+    const isFileProtocol = location.protocol === 'file:';
     const shareInput = document.getElementById('share-link');
     const copyLinkBtn = document.getElementById('copy-link-btn');
     const startCameraBtn = document.getElementById('start-camera-btn');
@@ -500,7 +501,16 @@
 
     const shareLink = `${location.origin}${location.pathname}?watch=1`;
     shareInput.value = shareLink;
+    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host || 'localhost:8081'}`;
+    console.log('Signaling URL:', signalingUrl);
 
+    if (isFileProtocol) {
+      updateConnection('افتح الصفحة عبر خادم محلي');
+      broadcasterStatus.textContent = 'لا يمكن تشغيل البث من ملف محلي، افتح الصفحة عبر خادم Node.';
+      showStatus('افتح الصفحة عبر الخادم', 'استخدم الأمر node server.js ثم افتح http://localhost:8081');
+      startCameraBtn.disabled = true;
+      startBroadcastBtn.disabled = true;
+    }
     if (isViewer) {
       broadcasterControls.classList.add('hidden');
       shareInput.closest('.share-link').classList.add('hidden');
@@ -733,7 +743,17 @@
       });
 
       signalingSocket.addEventListener('close', () => updateConnection('مغلق'));
-      signalingSocket.addEventListener('error', () => updateConnection('خطأ'));
+      signalingSocket.addEventListener('error', () => {
+        updateConnection('خطأ');
+        broadcasterStatus.textContent = 'خطأ في الاتصال بخادم الإشارة. تأكد أن الخادم يعمل على المنفذ الصحيح.';
+      });
+
+      signalingSocket.addEventListener('close', () => {
+        updateConnection('مغلق');
+        if (!isViewer) {
+          broadcasterStatus.textContent = 'انقطع الاتصال بخادم الإشارة. تأكد من تشغيل الخادم.';
+        }
+      });
 
       return signalingSocket;
     };
@@ -745,6 +765,10 @@
       }
       const socket = connectWebSocket();
       const sendBroadcaster = () => {
+        if (socket.readyState !== WebSocket.OPEN) {
+          broadcasterStatus.textContent = 'في انتظار اتصال الخادم...';
+          return;
+        }
         socket.send(JSON.stringify({ type: 'broadcaster' }));
         broadcasterStatus.textContent = 'البث يعمل الآن. شارك الرابط للمشاهدين.';
         startBroadcastBtn.disabled = true;

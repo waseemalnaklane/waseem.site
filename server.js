@@ -161,7 +161,21 @@ setInterval(() => {
   });
 }, 30000);
 
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-  console.log(`Broadcast server running on http://localhost:${PORT}`);
-});
+const DEFAULT_PORT = process.env.PORT || 8080;
+const FALLBACK_PORT = 8081;
+
+const startServer = (port) => {
+  server.listen(port, () => {
+    console.log(`Broadcast server running on http://localhost:${port}`);
+  }).on('error', (error) => {
+    if (error.code === 'EADDRINUSE' && port === DEFAULT_PORT) {
+      console.warn(`Port ${DEFAULT_PORT} is in use, trying ${FALLBACK_PORT} instead.`);
+      startServer(FALLBACK_PORT);
+    } else {
+      console.error('Server failed to start:', error);
+      process.exit(1);
+    }
+  });
+};
+
+startServer(DEFAULT_PORT);
