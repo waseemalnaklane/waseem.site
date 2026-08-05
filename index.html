@@ -137,6 +137,21 @@
       line-height: 1.75;
     }
 
+    .channel-label {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
     .broadcaster-controls {
       padding: 24px 28px 28px;
       display: grid;
@@ -338,8 +353,8 @@
   <div class="container">
     <header>
       <div class="badge">منصة بث مباشر احترافية</div>
-      <h1>بث مباشر من كاميرا الجوال مع دردشة ومشاركة رابط مشاهدة</h1>
-      <p class="subtitle">واجهة عامة ومهنية للبث المباشر من الجوال. توفر بث WebRTC مباشر دردشة لمتابعيك وجودة مشاهدة تلقائية أو اختيارية.</p>
+      <h1>بث مباشر waseem.com</h1>
+      <p class="subtitle">قناة pen sports live — بث مباشر واقعي مع دردشة ومشاركة الرابط للمشاهدين.</p>
     </header>
 
     <section class="card video-panel">
@@ -363,6 +378,7 @@
       </div>
 
       <div class="video-frame">
+        <span class="channel-label">pen sports live</span>
         <video id="live-video" controls playsinline autoplay muted></video>
         <div class="overlay" id="video-overlay">
           <strong id="overlay-title">انتظر حتى يبدأ البث</strong>
@@ -428,7 +444,7 @@
       </form>
     </aside>
 
-    <footer>تصميم واجهة احترافية للبث المباشر عبر الجوال مع دردشة ومشاركة رابط مشاهدة.</footer>
+    <footer>تصميم واجهة احترافية لبث مباشر waseem.com | قناة pen sports live.</footer>
   </div>
 
   <script>
