@@ -1,5 +1,6 @@
 ﻿const express = require('express');
 const http = require('http');
+const os = require('os');
 const WebSocket = require('ws');
 
 const app = express();
@@ -165,6 +166,14 @@ const DEFAULT_PORT = Number(process.env.PORT) || 8080;
 const FALLBACK_PORT = 8081;
 const HOST = '0.0.0.0';
 
+const getLocalIpAddresses = () => {
+  const interfaces = os.networkInterfaces();
+  return Object.values(interfaces)
+    .flat()
+    .filter((entry) => entry && !entry.internal && entry.family === 'IPv4')
+    .map((entry) => entry.address);
+};
+
 const startServer = (port) => {
   const onError = (error) => {
     if (error.code === 'EADDRINUSE' && port === DEFAULT_PORT) {
@@ -178,8 +187,12 @@ const startServer = (port) => {
 
   server.once('error', onError);
   server.listen(port, HOST, () => {
+    const ips = getLocalIpAddresses();
     console.log(`Broadcast server running on http://${HOST}:${port}`);
     console.log(`Open http://localhost:${port} in your browser`);
+    if (ips.length) {
+      console.log(`Open from your Android phone on the same Wi-Fi using: ${ips.map((ip) => `http://${ip}:${port}`).join(' | ')}`);
+    }
   });
 };
 

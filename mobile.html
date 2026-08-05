@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>البث المباشر من الجوال</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #071524, #112b4a);
+      color: #f4f8ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .card {
+      width: min(100%, 720px);
+      background: rgba(7, 17, 35, 0.94);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: #adbfda;
+      line-height: 1.7;
+    }
+
+    video {
+      width: 100%;
+      height: 320px;
+      border-radius: 18px;
+      background: #000;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .status {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      color: #dfeeff;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(90deg, #4dc4ff, #2e8cff);
+      color: #081525;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .share-box {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: white;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: #8da2be;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>البث المباشر من الجوال</h1>
+    <p>افتح هذه الصفحة من هاتفك ثم اضغط على زر البدء. بعد ذلك شارك الرابط مع أصدقائك لمشاهدته مباشرة.</p>
+    <video id="preview" autoplay playsinline muted></video>
+    <div class="status" id="status">جاهز للاتصال</div>
+    <div class="controls">
+      <button id="start-btn">ابدأ البث</button>
+      <button id="stop-btn" disabled>إيقاف البث</button>
+    </div>
+    <div class="share-box">
+      <label for="share-link">رابط المشاهدة</label>
+      <input id="share-link" readonly />
+      <button id="copy-btn">نسخ الرابط</button>
+    </div>
+    <div class="small">قد تحتاج إلى منح الصلاحيات لاستخدام الكاميرا والمكروفون. استخدم نفس الشبكة Wi‑Fi مع أصدقائك.</div>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const preview = document.getElementById('preview');
+    const startBtn = document.getElementById('start-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const shareLinkEl = document.getElementById('share-link');
+    const copyBtn = document.getElementById('copy-btn');
+
+    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`;
+    const shareLink = `${location.origin}/?watch=1`;
+    shareLinkEl.value = shareLink;
+
+    let signalingSocket = null;
+    let localStream = null;
+    let broadcasterPCs = {};
+    const iceConfig = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+    const setStatus = (message) => {
+      statusEl.textContent = message;
+    };
+
+    const connectSocket = () => {
+      if (signalingSocket && signalingSocket.readyState === WebSocket.OPEN) return signalingSocket;
+      signalingSocket = new WebSocket(signalingUrl);
+
+      signalingSocket.addEventListener('open', () => {
+        setStatus('متصل بالخادم - جاهز للبث');
+        if (localStream) {
+          signalingSocket.send(JSON.stringify({ type: 'broadcaster' }));
+        }
+      });
+
+      signalingSocket.addEventListener('message', async (event) => {
+        let data;
+        try { data = JSON.parse(event.data); } catch { return; }
+
+        if (data.type === 'watcher-join') {
+          await createBroadcasterPeer(data.viewerId);
+          setStatus('مشاهد جديد انضم إلى البث');
+        }
+
+        if (data.type === 'watcher-answer') {
+          const record = broadcasterPCs[data.viewerId];
+          if (record && record.pc) {
+            await record.pc.setRemoteDescription({ type: 'answer', sdp: data.sdp });
+          }
+        }
+
+        if (data.type === 'ice-candidate') {
+          const record = broadcasterPCs[data.viewerId];
+          if (record && record.pc) {
+            record.pc.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(() => {});
+          }
+        }
+
+        if (data.type === 'viewer-disconnect') {
+          const record = broadcasterPCs[data.viewerId];
+          if (record && record.pc) {
+            record.pc.close();
+            delete broadcasterPCs[data.viewerId];
+          }
+        }
+
+        if (data.type === 'broadcast-ended') {
+          setStatus('تم إيقاف البث');
+        }
+      });
+
+      signalingSocket.addEventListener('close', () => {
+        setStatus('تم فقد الاتصال بالخادم');
+      });
+
+      signalingSocket.addEventListener('error', () => {
+        setStatus('تعذر الاتصال بالخادم. تأكد من تشغيله على المنفذ 8080');
+      });
+
+      return signalingSocket;
+    };
+
+    const createBroadcasterPeer = async (viewerId) => {
+      if (!localStream) return;
+      const pc = new RTCPeerConnection(iceConfig);
+      localStream.getTracks().forEach((track) => pc.addTrack(track, localStream));
+
+      pc.onicecandidate = (event) => {
+        if (event.candidate && signalingSocket && signalingSocket.readyState === WebSocket.OPEN) {
+          signalingSocket.send(JSON.stringify({ type: 'candidate', target: viewerId, candidate: event.candidate, viewerId }));
+        }
+      };
+
+      pc.onconnectionstatechange = () => {
+        if (['disconnected', 'failed', 'closed'].includes(pc.connectionState)) {
+          delete broadcasterPCs[viewerId];
+        }
+      };
+
+      broadcasterPCs[viewerId] = { pc };
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+      signalingSocket.send(JSON.stringify({ type: 'offer', viewerId, sdp: offer.sdp }));
+    };
+
+    const startBroadcast = async () => {
+      try {
+        setStatus('جاري فتح الكاميرا والمكروفون...');
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: true
+        });
+        localStream = stream;
+        preview.srcObject = stream;
+
+        const socket = connectSocket();
+        if (socket.readyState === WebSocket.OPEN) {
+          socket.send(JSON.stringify({ type: 'broadcaster' }));
+        }
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        setStatus('البث جاهز الآن - شارك الرابط مع الأصدقاء');
+      } catch (error) {
+        console.error(error);
+        setStatus('تعذر الوصول إلى الكاميرا أو الميكروفون');
+      }
+    };
+
+    const stopBroadcast = () => {
+      if (signalingSocket && signalingSocket.readyState === WebSocket.OPEN) {
+        signalingSocket.send(JSON.stringify({ type: 'stop-broadcast' }));
+      }
+      Object.values(broadcasterPCs).forEach((record) => record.pc && record.pc.close());
+      broadcasterPCs = {};
+      if (localStream) {
+        localStream.getTracks().forEach((track) => track.stop());
+        localStream = null;
+      }
+      preview.srcObject = null;
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+      setStatus('تم إيقاف البث');
+    };
+
+    startBtn.addEventListener('click', startBroadcast);
+    stopBtn.addEventListener('click', stopBroadcast);
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(shareLink);
+        copyBtn.textContent = 'تم النسخ';
+        setTimeout(() => {
+          copyBtn.textContent = 'نسخ الرابط';
+        }, 1200);
+      } catch {
+        copyBtn.textContent = 'نسخ الرابط';
+      }
+    });
+  </script>
+</body>
+</html>
