@@ -396,7 +396,7 @@
 
       <div class="video-frame">
         <span class="channel-label"><span class="channel-badge">B</span> ben sport</span>
-        <video id="live-video" controls playsinline autoplay muted></video>
+        <video id="live-video" controls playsinline autoplay></video>
         <div class="overlay" id="video-overlay">
           <strong id="overlay-title">انتظر حتى يبدأ البث</strong>
           <p id="overlay-text">افتح الكاميرا واضغط على "بدء البث". بعد بدء البث يمكنك مشاركة الرابط للمشاهدين.</p>
@@ -490,7 +490,8 @@
     const viewerQualitySelect = document.getElementById('viewer-quality');
     const viewerQualityBox = document.getElementById('viewer-quality-box');
 
-    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.hostname}:8080`;
+    const signalingUrl = `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host || 'localhost:8080'}`;
+    console.log('Signaling URL:', signalingUrl);
     let signalingSocket = null;
     let cameraStream = null;
     let viewerPC = null;
@@ -533,6 +534,10 @@
     const updateViewerCount = (count) => {
       viewerCountDisplay.textContent = `المشاهدون: ${count}`;
     };
+
+    if (isViewer) {
+      liveVideo.muted = false;
+    }
 
     const showStatus = (title, text) => {
       overlayTitle.textContent = title;

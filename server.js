@@ -49,6 +49,11 @@ wss.on('connection', (socket) => {
         socket.send(JSON.stringify({ type: 'broadcaster-ready' }));
         broadcastToAll({ type: 'broadcast-status', active: true });
         sendViewerCountToBroadcaster();
+        viewers.forEach((viewer, viewerId) => {
+          if (broadcasterSocket && broadcasterSocket.readyState === WebSocket.OPEN) {
+            broadcasterSocket.send(JSON.stringify({ type: 'watcher-join', viewerId }));
+          }
+        });
         break;
 
       case 'watcher': {
